@@ -1,0 +1,152 @@
+initialCurrencyAtomicUnits: 420000000000000
+maxMosaicAtomicUnits: 5000000000000000
+totalChainImportance: 420000
+minHarvesterBalance: 200
+maxHarvesterBalance: 420000
+networkType: 152
+minNamespaceDuration: 1m
+maxNamespaceDuration: 365d
+blockGenerationTargetTime: 15s
+importanceGrouping: 180
+importanceActivityPercentage: 5
+maxRollbackBlocks: 0
+maxDifficultyBlocks: 60
+defaultDynamicFeeMultiplier: 1000
+
+maxTransactionLifetime: 24h
+maxBlockFutureTime: 500ms
+minVoterBalance: 2000
+votingSetGrouping: 180
+maxVotingKeysPerAccount:  3
+minVotingKeyLifetime: 28
+maxVotingKeyLifetime: 26280
+
+harvestBeneficiaryPercentage: 15
+harvestNetworkPercentage: 10
+
+assemblies: 'api, dual, peer'
+batchVerificationRandomSource: /dev/urandom
+
+currencyMosaicId: 171F440880C3B913
+harvestingMosaicId: 353053CE24EE9D66
+baseNamespace: lared
+currencyName: 'moneda'
+harvestingName: 'red'
+maxSecretLockDuration: 30d
+namespaceGracePeriodDuration: 2m
+nemesisGenerationHashSeed: 9F5D58B772A55C1393ACE5802E4633C1FF3C04EA85195B0EBA4249F6E09ACB7A
+nemesisSignerPublicKey: EFB254D0FD1E0A4AE2289A044BD9EC90B2E90CE9569BD35845BB01616B5F4618
+harvestNetworkFeeSinkAddress: TBYFC5XFRJNDRKD3AC4D52LOX5KX5HXQCJTHTTA
+mosaicRentalFeeSinkAddress: TD6H3LISTN64KLJB4VOEBZQGVIGEZ3ATNDJ4R5Y
+namespaceRentalFeeSinkAddress: TBHNULEWSGJQKMFGIZMVYAQGFBWQHGR7GHUTWUA
+
+trustedHosts:
+inflation:
+    starting-at-height-1: 990
+    starting-at-height-40430: 989
+    starting-at-height-80640: 992
+    starting-at-height-362880: 965
+    starting-at-height-403200: 942
+    starting-at-height-443520: 924
+    starting-at-height-483840: 909
+    starting-at-height-524160: 897
+    starting-at-height-564480: 886
+    starting-at-height-604800: 876
+    starting-at-height-645120: 868
+    starting-at-height-685440: 846
+    starting-at-height-725760: 827
+    starting-at-height-766080: 809
+    starting-at-height-806400: 794
+    starting-at-height-846720: 779
+    starting-at-height-887040: 767
+    starting-at-height-927360: 755
+    starting-at-height-967680: 744
+    starting-at-height-1008000: 724
+    starting-at-height-1048320: 706
+    starting-at-height-1088640: 689
+    starting-at-height-1128960: 673
+    starting-at-height-1169280: 659
+    starting-at-height-1209600: 645
+    starting-at-height-1249920: 632
+    starting-at-height-1290240: 620
+    starting-at-height-1330560: 609
+    starting-at-height-1370880: 598
+    starting-at-height-2217600: 397
+    starting-at-height-3064320: 320
+    starting-at-height-3911040: 276
+    starting-at-height-4757760: 248
+    starting-at-height-5604480: 228
+    starting-at-height-6451200: 214
+    starting-at-height-7297920: 203
+    starting-at-height-8144640: 194
+    starting-at-height-9152640: 184
+    starting-at-height-10241280: 174
+    starting-at-height-11491200: 164
+    starting-at-height-12862080: 154
+    starting-at-height-14434560: 144
+    starting-at-height-16168320: 135
+    starting-at-height-18144000: 126
+    starting-at-height-20321280: 117
+    starting-at-height-22780800: 109
+    starting-at-height-25522560: 101
+    starting-at-height-28586880: 94
+    starting-at-height-32054400: 87
+    starting-at-height-35884800: 80
+    starting-at-height-40239360: 74
+    starting-at-height-45077760: 68
+    starting-at-height-50520960: 63
+    starting-at-height-56568960: 58
+    starting-at-height-63383040: 53
+    starting-at-height-71003520: 49
+    starting-at-height-79551360: 45
+    starting-at-height-89107200: 41
+    starting-at-height-99832320: 38
+    starting-at-height-111807360: 35
+    starting-at-height-125233920: 32
+    starting-at-height-140273280: 29
+    starting-at-height-157127040: 27
+    starting-at-height-175996800: 24
+    starting-at-height-197124480: 22
+    starting-at-height-220792320: 20
+    starting-at-height-247322880: 19
+    starting-at-height-276998400: 17
+    starting-at-height-310262400: 0
+
+knownPeers:
+    api-node:
+        - publicKey: ed04b7a17b287bc31fac6174743096a26d2ab23cb1b2252ed208630bc96b15f9
+          endpoint:
+              host: 51.116.236.138
+              port: 7900
+          metadata:
+              name: Lared-testnet-dual-0
+              roles: Api,Peer,Voting
+        - publicKey: 0daf22a72f7edc3c8a06c4e82d58d3a333f13def18548678967d4a48e2a63cae
+          endpoint:
+              host: 20.52.149.171
+              port: 7900
+          metadata:
+              name: Lared-testnet-dual-1
+              roles: Api,Peer,Voting
+    peer-node:
+        - publicKey: a20915aa2bcfb6c638ecc696da06c51f86e634dd5e842fdaed93f7ee85bbed10
+          endpoint:
+              host: 20.52.149.164
+              port: 7900
+          metadata:
+              name: Lared-testnet-peer-0
+              roles: Peer,Voting
+        - publicKey: ed04b7a17b287bc31fac6174743096a26d2ab23cb1b2252ed208630bc96b15f9
+          endpoint:
+              host: 51.116.236.138
+              port: 7900
+          metadata:
+              name: Lared-testnet-dual-0
+              roles: Api,Peer,Voting
+        - publicKey: 0daf22a72f7edc3c8a06c4e82d58d3a333f13def18548678967d4a48e2a63cae
+          endpoint:
+              host: 20.52.149.171
+              port: 7900
+          metadata:
+              name: Lared-testnet-dual-1
+              roles: Api,Peer,Voting

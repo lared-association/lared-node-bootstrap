@@ -1,0 +1,24 @@
+databases:
+    - name: 'db'
+      openPort: false
+nodes:
+    - harvesting: true
+      voting: true
+      api: true
+      name: 'lared-api-node'
+      host: ''
+      databaseHost: 'db'
+      brokerName: 'lared-api-broker'
+      openPort: true
+      brokerOpenPort: true
+      trustedHosts: 127.0.0.1, 172.20.0.25
+      localNetworks: 127.0.0.1, 172.20.0.25
+gateways:
+    - name: 'rest-gateway'
+      apiNodeName: 'lared-api-node'
+      apiNodeHost: 'lared-api-node'
+      apiNodeBrokerHost: 'lared-api-broker'
+      description: 'LaRed testnet REST client'
+      databaseHost: 'db'
+      openPort: true
+      ipv4_address: 172.20.0.25
