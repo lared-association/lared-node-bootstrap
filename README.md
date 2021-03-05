@@ -102,11 +102,11 @@ Once in the working dir:
 
 <!-- usage -->
 ```sh-session
-$ npm install -g @lared/lared-node-bootstrap
+$ npm install -g @lared-association/lared-node-bootstrap
 $ lared-node-bootstrap COMMAND
 running command...
 $ lared-node-bootstrap (-v|--version|version)
-@lared/lared-node-bootstrap/0.4.2 win32-x64 node-v12.19.0
+@lared-association/lared-node-bootstrap/0.4.2 win32-x64 node-v12.19.0
 $ lared-node-bootstrap --help [COMMAND]
 USAGE
   $ lared-node-bootstrap COMMAND
