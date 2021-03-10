@@ -20,7 +20,7 @@ import { BootstrapService, BootstrapUtils, ComposeService } from '../service';
 export default class Compose extends Command {
     static description = 'It generates the `docker-compose.yml` file from the configured network.';
 
-    static examples = [`$ symbol-bootstrap compose`];
+    static examples = [`$ lared-node-bootstrap compose`];
 
     static flags = {
         help: BootstrapUtils.helpFlag,

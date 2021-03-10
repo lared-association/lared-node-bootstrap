@@ -20,7 +20,7 @@ import { BootstrapService, BootstrapUtils, ConfigService, Preset } from '../serv
 export default class Config extends Command {
     static description = 'Command used to set up the configuration files and the nemesis block for the current network';
 
-    static examples = [`$ symbol-bootstrap config -p bootstrap`];
+    static examples = [`$ lared-node-bootstrap config -p bootstrap`];
 
     static flags = {
         help: BootstrapUtils.helpFlag,

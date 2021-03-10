@@ -1,5 +1,5 @@
 {
-    "name": "@lared-association/lared-node-bootstrap",
+    "name": "@lared/lared-node-bootstrap",
     "description": "Symbol tool that allows you creating, configuring and running LaRed node",
     "version": "0.4.2",
     "author": "Fernando Boucquez <fboucquez@gmail.com>, Matas Vosylius <matas@superhow.org>",

@@ -20,7 +20,7 @@ import { BootstrapService, BootstrapUtils } from '../service';
 export default class ResetData extends Command {
     static description = 'It removes the data keeping the generated configuration, certificates, keys and block 1.';
 
-    static examples = [`$ symbol-bootstrap resetData`];
+    static examples = [`$ lared-node-bootstrap resetData`];
 
     static flags = {
         help: BootstrapUtils.helpFlag,

@@ -15,8 +15,8 @@ USAGE
 
 OPTIONS
   -h, --help           It shows the help of this command.
-  -t, --target=target  [default: target] The target folder where the symbol-bootstrap network is generated
+  -t, --target=target  [default: target] The target folder where the lared-node-bootstrap network is generated
 
 EXAMPLE
-  $ symbol-bootstrap clean
+  $ lared-node-bootstrap clean
 ```

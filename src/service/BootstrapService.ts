@@ -29,7 +29,7 @@ export type StartParams = ConfigParams & ComposeParams & RunParams;
  * Main entry point for API integration.
  */
 export class BootstrapService {
-    public constructor(private readonly root: string = './node_modules/symbol-bootstrap') {}
+    public constructor(private readonly root: string = './node_modules/lared-node-bootstrap') {}
 
     /**
      * It generates the configuration and nemesis for the provided preset

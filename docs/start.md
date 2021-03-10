@@ -37,7 +37,7 @@ OPTIONS
       It resets the configuration generating a new one
 
   -t, --target=target
-      [default: target] The target folder where the symbol-bootstrap network is generated
+      [default: target] The target folder where the lared-node-bootstrap network is generated
 
   -u, --user=user
       [default: current] User used to run docker images when creating configuration files like certificates or nemesis 
@@ -74,7 +74,7 @@ OPTIONS
       preset (-a) must be used. Backup the target folder before upgrading.
 
 EXAMPLES
-  $ symbol-bootstrap start
-  $ symbol-bootstrap start -p bootstrap
-  $ symbol-bootstrap start -p testnet -a dual
+  $ lared-node-bootstrap start
+  $ lared-node-bootstrap start -p bootstrap
+  $ lared-node-bootstrap start -p testnet -a dual
 ```

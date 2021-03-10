@@ -84,7 +84,7 @@ export class BootstrapUtils {
 
     public static targetFlag = flags.string({
         char: 't',
-        description: 'The target folder where the symbol-bootstrap network is generated',
+        description: 'The target folder where the lared-node-bootstrap network is generated',
         default: BootstrapUtils.defaultTargetFolder,
     });
 
@@ -238,7 +238,7 @@ export class BootstrapUtils {
     }
 
     public static showBanner(): void {
-        console.log(textSync('symbol-bootstrap', { horizontalLayout: 'full' }));
+        console.log(textSync('lared-node-bootstrap', { horizontalLayout: 'full' }));
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

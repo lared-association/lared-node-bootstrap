@@ -84,21 +84,21 @@ function symbol_cli_install(){
 function network_setup(){
 	mkdir -p $node_dir
 	cd $node_dir
-	symbol-bootstrap config -p lared -a dual 
+	lared-node-bootstrap config -p lared -a dual 
 	sleep 3
-	symbol-bootstrap compose
+	lared-node-bootstrap compose
 	sleep 2
 	
 }
 
 function start_node(){
 	cd $node_dir
-	symbol-bootstrap run --detached
+	lared-node-bootstrap run --detached
 }
 
 function checkHealth(){
 	cd $node_dir
-	symbol-bootstrap healthCheck
+	lared-node-bootstrap healthCheck
 	sleep 1
 }
 
@@ -161,8 +161,8 @@ fi
 
 
 # client node preparation
-if [ ! command -v symbol-bootstrap &> /dev/null ]; then
-	echo "NOT FOUND: symbol-bootstrap could not be found"
+if [ ! command -v lared-node-bootstrap &> /dev/null ]; then
+	echo "NOT FOUND: lared-node-bootstrap could not be found"
 	exit 1
 else
 	if [ ! -d $DIR/blockchain-node/target ]; then
@@ -180,7 +180,7 @@ else
 	echo "ERROR: Blockchain node is not prepared"
 fi
 
-if [ ! command -v symbol-bootstrap &> /dev/null ];; then
+if [ ! command -v lared-node-bootstrap &> /dev/null ];; then
         echo "==> PROCESS: Checking if node is running"
         checkHealth
 else

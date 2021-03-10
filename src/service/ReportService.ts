@@ -209,7 +209,7 @@ ${csvBody.trim().replace(/^/gm, '    ')}`;
     private async toCsvReport(reportFolder: string, n: ReportNode) {
         const reportFile = join(reportFolder, `${n.name}-config.csv`);
         const reportContent =
-            `symbol-bootstrap-version; ${BootstrapUtils.VERSION}\n\n` +
+            `lared-node-bootstrap-version; ${BootstrapUtils.VERSION}\n\n` +
             n.files
                 .map((fileReport) => {
                     const csvBody = fileReport.sections

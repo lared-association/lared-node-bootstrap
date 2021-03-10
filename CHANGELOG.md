@@ -10,7 +10,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.4.2  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.4.2  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   Link command supports for `main` multisig accounts.
 -   Supernode enrol command supports for `main` multisig accounts.
@@ -25,7 +25,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.4.1  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.4.1  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   Improved --password. It's only required when private keys need to be read.
 -   Added `database` service to server and broker `depends_on` compose services.
@@ -40,7 +40,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.4.0  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.4.0  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   **Re track to catapult-server main branch**
 -   Compose file version default to 2.4.
@@ -57,7 +57,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.3.1  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.3.1  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   Allowed Bootstrap to run as sudo/root. NOT RECOMMENDED!
 -   Added Chmod 777 permission change to the db data folder when running as sudo/root.
@@ -70,7 +70,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.3.0  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.3.0  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   **New Service:** `Wallet`. Bootstrap private network starts a Wallet service in [http://localhost:80/](http://localhost:80/) when using `--assembly full`. . **Warning:** This wallet service is for demonstration purposes only.
 -   **New Service:** `Explorer`. Bootstrap private network starts an Explorer service in [http://localhost:90/](http://localhost:90/) when using `--assembly full`.
@@ -90,7 +90,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.2.1  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.2.1  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   Fixed DB initialization.
 -   Added more configurable properties.
@@ -101,14 +101,14 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.2.0  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.2.0  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   **[BREAKING CHANGE]** Target folder structure has been changed for scalability. The old target folder needs to be dropped when running this version. Backup the target folder if you need to keep your data!
--   **New Command:** `symbol-bootstrap resetData` cleans the peer data and database without dropping the generated configuration.
--   **New Command:** `symbol-bootstrap healthCheck` tests if the docker compose network is running locally. `--healthCheck` param is allowed in `start` and `run` commands.
+-   **New Command:** `lared-node-bootstrap resetData` cleans the peer data and database without dropping the generated configuration.
+-   **New Command:** `lared-node-bootstrap healthCheck` tests if the docker compose network is running locally. `--healthCheck` param is allowed in `start` and `run` commands.
 -   Allowed `repeat` on a node, a database or a gateway to instantiate them multiple times. This enables you to create large network configurations quickly.
 -   Allowed `repeat` in the nemesis block's mosaic list. Harvest currency can be removed with `repeat:0`.
--   Removed preset `light`. Now it's an assembly for the bootstrap preset: `symbol-bootstrap -p bootstrap -a light`.
+-   Removed preset `light`. Now it's an assembly for the bootstrap preset: `lared-node-bootstrap -p bootstrap -a light`.
 -   Sink addresses are generated by default.
 -   Path properties are now relative folder locations. This improves reusability of the configuration when running the services outside docker compose.
 -   Added node type based default configuration simplifying the configuration of nodes in presets.
@@ -126,10 +126,10 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.1.1  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.1.1  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
--   **New Command:** `symbol-bootstrap link` links the nodes' VRF and Voting keys to an existing network. This simplifies the node registration process to running networks like `testnet`.
--   **New Command:** `symbol-bootstrap report` generates rst and csv files from the configured server properties for documentation. Added `--report` flag to `config` and `start` commands.
+-   **New Command:** `lared-node-bootstrap link` links the nodes' VRF and Voting keys to an existing network. This simplifies the node registration process to running networks like `testnet`.
+-   **New Command:** `lared-node-bootstrap report` generates rst and csv files from the configured server properties for documentation. Added `--report` flag to `config` and `start` commands.
 -   Fixed default host names in `api` and `peer` in `testnet` preset.
 -   The `voting:`, `harvesting:` and `api:` node preset flags define the node's `roles:` setting. There is no need to provide `roles:` attribute anymore.
 -   Voting, signing and VRF keys, transactions and tree file are generated and announced when required depending on the node role flags.
@@ -145,7 +145,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.1.0  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.1.0  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   0.10.0.3 catapult server support.
 -   2.1.0 rest server support.
@@ -160,6 +160,6 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 | Package          | Version | Link                                                               |
 | ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v0.0.0  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap | v0.0.0  | [lared-node-bootstrap](https://www.npmjs.com/package/lared-node-bootstrap) |
 
 -   Very first version of the tool!

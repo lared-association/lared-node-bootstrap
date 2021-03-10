@@ -21,7 +21,7 @@ import { AnnounceService } from '../service/AnnounceService';
 export default class EnrolSupernode extends Command {
     static description = `It enrols the nodes in the supernode rewards program by announcing the enrol transaction to the registration address.`;
 
-    static examples = [`$ symbol-bootstrap enrolSupernode`];
+    static examples = [`$ lared-node-bootstrap enrolSupernode`];
 
     static flags = {
         help: BootstrapUtils.helpFlag,

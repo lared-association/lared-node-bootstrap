@@ -22,7 +22,7 @@ USAGE
 
 OPTIONS
   -h, --help           It shows the help of this command.
-  -t, --target=target  [default: target] The target folder where the symbol-bootstrap network is generated
+  -t, --target=target  [default: target] The target folder where the lared-node-bootstrap network is generated
 
 DESCRIPTION
   This command checks:
@@ -33,5 +33,5 @@ DESCRIPTION
   The health check process handles 'repeat' and custom 'openPort' services.
 
 EXAMPLE
-  $ symbol-bootstrap healthCheck
+  $ lared-node-bootstrap healthCheck
 ```

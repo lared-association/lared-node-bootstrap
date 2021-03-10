@@ -107,7 +107,7 @@ In order to finalize the peer or voting nodes registration to an existing networ
 Then run:
 
 ```
-symbol-bootstrap link
+lared-node-bootstrap link
 ```
 
 **Note:** Full network `-p bootstrap` nodes are fully configured voting and peer nodes. `VotingKeyLinkTransaction` and `VrfKeyLinkTransaction` are added to the nemesis block automatically.
@@ -253,7 +253,7 @@ gateways:
 This is done by passing [docker-compose up](https://docs.docker.com/compose/reference/up) params through bootstrap via `--args`.
 
 ```
-symbol-bootstrap start -r --args "--scale rest-gateway-0=0"
+lared-node-bootstrap start -r --args "--scale rest-gateway-0=0"
 ```
 
 ### Enable compose debug mode

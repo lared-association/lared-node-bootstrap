@@ -25,7 +25,7 @@ OPTIONS
       It shows the help of this command.
 
   -t, --target=target
-      [default: target] The target folder where the symbol-bootstrap network is generated
+      [default: target] The target folder where the lared-node-bootstrap network is generated
 
   --args=args
       Add extra arguments to the docker-compose up command. Check out https://docs.docker.com/compose/reference/up.
@@ -50,5 +50,5 @@ OPTIONS
       [default: 60000] If running in detached mode, how long before timing out (in milliseconds)
 
 EXAMPLE
-  $ symbol-bootstrap run
+  $ lared-node-bootstrap run
 ```
