@@ -224,7 +224,7 @@ export class BootstrapUtils {
     }
 
     public static showBanner(): void {
-        console.log(textSync('symbol-bootstrap', { horizontalLayout: 'fitted' }));
+        console.log(textSync('lared-node-bootstrap', { horizontalLayout: 'fitted' }));
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

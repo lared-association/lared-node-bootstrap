@@ -31,9 +31,9 @@ The main use case of this command is to verify private keys in encrypted files a
 
     static examples = [
         `
-$ symbol-bootstrap start --password 1234 --preset testnet --assembly dual --customPreset decrypted-custom-preset.yml --detached
-$ symbol-bootstrap decrypt --password 1234 --source target/addresses.yml --destination plain-addresses.yml
-$ symbol-bootstrap decrypt --password 1234 --source encrypted-custom-preset.yml --destination plain-custom-preset.yml
+$ lared-node-bootstrap start --password 1234 --preset testnet --assembly dual --customPreset decrypted-custom-preset.yml --detached
+$ lared-node-bootstrap decrypt --password 1234 --source target/addresses.yml --destination plain-addresses.yml
+$ lared-node-bootstrap decrypt --password 1234 --source encrypted-custom-preset.yml --destination plain-custom-preset.yml
 $ cat plain-addresses.yml
 $ cat plain-custom-preset.yml
 $ rm plain-addresses.yml
@@ -41,18 +41,18 @@ $ rm plain-custom-preset.yml
         `,
 
         `
-$ symbol-bootstrap start --preset testnet --assembly dual --customPreset decrypted-custom-preset.yml --detached
+$ lared-node-bootstrap start --preset testnet --assembly dual --customPreset decrypted-custom-preset.yml --detached
 > password prompt
-$ symbol-bootstrap decrypt --source target/addresses.yml --destination plain-addresses.yml
+$ lared-node-bootstrap decrypt --source target/addresses.yml --destination plain-addresses.yml
 > password prompt (enter the same password)
-$ symbol-bootstrap decrypt --source encrypted-custom-preset.yml --destination plain-custom-preset.yml
+$ lared-node-bootstrap decrypt --source encrypted-custom-preset.yml --destination plain-custom-preset.yml
 > password prompt (enter the same password)
 $ cat plain-addresses.yml
 $ cat plain-custom-preset.yml
 $ rm plain-addresses.yml
 $ rm plain-custom-preset.yml`,
         `
-$ echo "$MY_ENV_VAR_PASSWORD" | symbol-bootstrap decrypt --source target/addresses.yml --destination plain-addresses.yml
+$ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap decrypt --source target/addresses.yml --destination plain-addresses.yml
 `,
     ];
 

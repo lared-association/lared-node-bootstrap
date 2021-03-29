@@ -21,7 +21,7 @@ import { CommandUtils } from '../service/CommandUtils';
 export default class Clean extends Command {
     static description = 'It removes the target folder deleting the generated configuration and data';
 
-    static examples = [`$ symbol-bootstrap clean`];
+    static examples = [`$ lared-node-bootstrap clean`];
 
     static flags = {
         help: CommandUtils.helpFlag,

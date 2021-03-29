@@ -1,4 +1,4 @@
-symbol-bootstrap-version; CURRENT_VERSION
+lared-node-bootstrap-version; CURRENT_VERSION
 
 config-database.properties
 database

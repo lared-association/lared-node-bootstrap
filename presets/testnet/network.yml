@@ -1,532 +1,146 @@
-initialCurrencyAtomicUnits: 7831975436000000
-maxMosaicAtomicUnits: 9000000000000000
-totalChainImportance: 7831975436000000
-minHarvesterBalance: 10000000000
-maxHarvesterBalance: 50000000000000
-minVoterBalance: 3000000000000
+initialCurrencyAtomicUnits: 420000000000000
+maxMosaicAtomicUnits: 5000000000000000
+totalChainImportance: 420000
+minHarvesterBalance: 200
+maxHarvesterBalance: 420000
+minVoterBalance: 2000
 networkType: 152
-minNamespaceDuration: 30d
+minNamespaceDuration: 1m
+
 assemblies: 'api, dual, peer'
 harvestBeneficiaryPercentage: 25
 batchVerificationRandomSource: /dev/urandom
-currencyMosaicId: 2CF403E85507F39E
-harvestingMosaicId: 2CF403E85507F39E
-baseNamespace: symbol
-currencyName: 'xym'
-rewardProgramControllerPublicKey: 68B6A1D2F292E75F9BB8E9EDDA086A7C293A198C9968FF7528374075AAF4D983
-rewardProgramCaFile: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZpekNDQTNNQ0ZGWkpmSjRMaXVxOXJzRVJUbllOa0ZQQ3dySTJNQTBHQ1NxR1NJYjNEUUVCQ3dVQU1JR0IKTVFzd0NRWURWUVFHRXdKVlV6RUxNQWtHQTFVRUNBd0NUVUV4RHpBTkJnTlZCQWNNQmtKdmMzUnZiakVUTUJFRwpBMVVFQ2d3S1JYaGhiWEJzWlNCRGJ6RVFNQTRHQTFVRUN3d0hkR1ZqYUc5d2N6RUxNQWtHQTFVRUF3d0NZMkV4CklEQWVCZ2txaGtpRzl3MEJDUUVXRVdObGNuUnpRR1Y0WVcxd2JHVXVZMjl0TUI0WERUSXhNREV4TVRFME16QXoKTVZvWERUUTRNRFV5T0RFME16QXpNVm93Z1lFeEN6QUpCZ05WQkFZVEFsVlRNUXN3Q1FZRFZRUUlEQUpOUVRFUApNQTBHQTFVRUJ3d0dRbTl6ZEc5dU1STXdFUVlEVlFRS0RBcEZlR0Z0Y0d4bElFTnZNUkF3RGdZRFZRUUxEQWQwClpXTm9iM0J6TVFzd0NRWURWUVFEREFKallURWdNQjRHQ1NxR1NJYjNEUUVKQVJZUlkyVnlkSE5BWlhoaGJYQnMKWlM1amIyMHdnZ0lpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElDRHdBd2dnSUtBb0lDQVFDbHhWVzlZZ2RmSFlGcwpad1BIcVlOaUhWcUtaMnlLZ2VnYXdqYTRuZlN5WkFmWHpIRzdiMmNaRXZUbDkwY2EreFhSdjhCR0J1RmM0QksyCmJCRGpMQk9VMmpQaXVqLytNTEFHR1dYUGtReGtLYzZjc3M1Q1RWUkx0SXhucERHZk1GSmhLNDFTZlcydmZleEUKYThXMldHWjdmc3dGV1IyMlFJL2RwSkM2TEtqdE15VmdhUi9EUDNXTE45MmZRbE5VajdIQ1ZFbVg4ZWI1Y3I3egpnK2I0cWt3S1Z4cWJWNGhmektqT0w0ZURWSksxVlZieFJLaE1iRmNhWVBlTnUrUzc3a05xajh6aE1MSTBTK0xpCnMvckNpUFBjelFuakcraFNiZHUvSnhYL0psR282VTlvb1BKKzNsNHBHUE9nTmNYOW9NS01TK2NoWXJ0aE5uWnMKbUMvMWpZUm5jcXdKRUlGVTBqYzBtSFhyTytTM2tSMEpjUVRPU05lMVVYMExrOWdjaFl2aUVOaFV6VVUxRHEvSwpTbGJQdjBNdGluaTNQVUs5endlL2J6d3VTMDlldkFhNjdDWDNSRWdoTnFienlwS2c2ZHY4LzdUUTBldFUvcmxWClo5UEVodW84R1I1bEpNbUJSaTY5MlQ2NEg1QmZQdHlpbk04NWw5NzBacCsvTjAxOUJlTDQ2NkUzdWFMdmhHQS8KTXV5NEd0ZVI5N0p4UFJzN2d3ZGY0VDdNbXQ1Vk1jVWFiMGFNc1pwdjNzZlBYNWZxYWNYckVxMjJMaldlVW93KwoxaDFWRmhFdXVwcnZOalViY25zNTNpZE0wZHNRN2xuOU5iY0pJdjZhQkFCZndYQ3FsSXU2OUNiYStGWnYxRTI5ClRhRlF3UERONTFsOU9IbEo4OFpWTXpOY2FUVjdVUUlEQVFBQk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQ0FRQ0UKQ2RkQXJxUHVrV1ZITkFmdXZWcjc0akZPWXQ2cU5vTDA0cGoxalhnOEkzUkpiQzJwRU4vYisrNmFRbUp3R1ZlaQpLZ1BLWmgwVU1lYm9qR1hrcllBVDJKMjRXa1NNb2V5MmFyYzFEa2xlN2x3d1MvQ2xsMVgrVWVkd2JmWmxjYTRFCkJJRzNveXJPeVlRR1hMRGFKcEh1Z28zY3dndkNZNlZVRmIwQUhSeExHN0dIVmt3VzU3aDRkWSt5cWg4QnJHalIKcjRKRlBtcWlPVHUyTTNWdjJoV1dGUVgwSkZUQlJsMldldENVa1FjVEZVK2I2R1VTMnBRUTRpZkFITXdYY05aagpCUHpoT2JVYmd5Mkg0enhlVStENmFORTJDell5TlFCWHFUVDJPcHVDV3B3VmlzRHNRMUVZdmdZc3ZUenF2b1pDCmpnZVlVWi9hdXJIQkRnRGNDc3g1NkE0MUtNbFV3Y0Zub3FsOUdDZVNWY2ErTmR4UnEwWTJGVjNQVDJZVjJRc24KeXRxWndGTVcyWm1PVUl1N202SjMzdkptdS9YTncwMlVQZm53c1ppK3dkbDJ2cFdWQmNJRko2eXc0U0lVYXNLeQp3anVENVhuQTdwR2FEZjdkcVNiOUl0eGNZaFhSR3IySU1RbEppUHpnUVJCSS9UYnh5YjFKdWZlb1M2cU1kRitOCnRjbE5TaGlpeFJxOE1XSUxEdngzMC9WdU9uanEvY1NyV0NlQ3JwSHVySU1MclN2OXVUTk9MRW1EMkxtVXo1Q3EKdEJQNkZqOEE2b1pCUWxqc2pGQU5WaGwwcXJQRCtLL0NaS1lVeStiOG50bHM2dnJWQVppSXl2U2YxT1NTRldTYgpLUjZFdDZhZGc3TVRPd1EreXI1UlFTbGNBVTZlNVl6RE5ETC9zSFdJS2c9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
-harvestingName: 'xym'
-votingSetGrouping: 720
-maxSecretLockDuration: 365d
-maxNamespaceDuration: 1825d
-namespaceGracePeriodDuration: 1d
-blockGenerationTargetTime: 30s
-nemesisGenerationHashSeed: 45FBCF2F0EA36EFA7923C9BC923D6503169651F7FA4EFC46A8EAF5AE09057EBD
-nemesisSignerPublicKey: 071964D3C040D62DE905EAE978E2119BFC8E70489BFDF45A85B3D7ED5A517AA8
-sinkAddress: TDGY4DD2U4YQQGERFMDQYHPYS6M7LHIF6XUCJ4Q
-harvestNetworkFeeSinkAddress: TDGY4DD2U4YQQGERFMDQYHPYS6M7LHIF6XUCJ4Q
-mosaicRentalFeeSinkAddress: TDGY4DD2U4YQQGERFMDQYHPYS6M7LHIF6XUCJ4Q
-namespaceRentalFeeSinkAddress: TDGY4DD2U4YQQGERFMDQYHPYS6M7LHIF6XUCJ4Q
-faucetUrl: 'http://faucet.testnet.symboldev.network'
+currencyMosaicId: 451AFC47F3BED2A1
+harvestingMosaicId: 13E9B8E6C3378A2F
+baseNamespace: lared
+currencyName: 'moneda'
+harvestingName: 'red'
+votingSetGrouping: 180
+maxSecretLockDuration: 30d
+maxNamespaceDuration: 365d
+namespaceGracePeriodDuration: 2m
+blockGenerationTargetTime: 15s
+nemesisGenerationHashSeed: 8CE1EF876A8CCE234E8C600877D568810C6797F031C75E63AA0E6674B00F057C
+nemesisSignerPublicKey: 9EF80D358297E945C4CC2C90815AE8000B1682228247987D9BB4DDC9FB83E43C
+sinkAddress: TBCGCKI6K5Z5BUL7WXTNXRTHP4WBZWCTZ6YKK7Y
+harvestNetworkFeeSinkAddress: TBCGCKI6K5Z5BUL7WXTNXRTHP4WBZWCTZ6YKK7Y
+mosaicRentalFeeSinkAddress: TDMJYOW77JYNLIDSU6BA57YEHM337ZLQWLEDCNQ
+namespaceRentalFeeSinkAddress: TCZW3TWABIQYM2FWRHCVOLTICTJ5KAMSS3G3XDY
+faucetUrl: 'http://faucet.lared.superhow.net'
 symbolServerToolsImage: symbolplatform/symbol-server:tools-gcc-0.10.1.8
 symbolServerImage: symbolplatform/symbol-server:gcc-0.10.1.8
 minPartnerNodeVersion: 0.10.0.7
-maxPartnerNodeVersion: 0.10.1.8
+maxPartnerNodeVersion: 1.0.0.0
 serverVersion: 0.10.1.8
 knownRestGateways:
-    - 'http://api-01.ap-northeast-1.testnet.symboldev.network:3000'
-    - 'http://api-01.ap-southeast-1.testnet.symboldev.network:3000'
-    - 'http://api-01.eu-central-1.testnet.symboldev.network:3000'
-    - 'http://api-01.eu-west-1.testnet.symboldev.network:3000'
-    - 'http://api-01.us-east-1.testnet.symboldev.network:3000'
-    - 'http://api-01.us-west-1.testnet.symboldev.network:3000'
+    - 'http://20.52.130.150:3000'
+    - 'http://20.52.134.220:3000'
 trustedHosts:
 inflation:
-    starting-at-height-2: 95998521
-    starting-at-height-200: 91882261
-    starting-at-height-400: 87942499
-    starting-at-height-600: 84171668
-    starting-at-height-800: 80562525
-    starting-at-height-2537757: 77108135
-    starting-at-height-3062757: 73801864
-    starting-at-height-3587757: 70637360
-    starting-at-height-4112757: 67608545
-    starting-at-height-4637757: 64709601
-    starting-at-height-5162757: 61934959
-    starting-at-height-5687757: 59279289
-    starting-at-height-6212757: 56737489
-    starting-at-height-6737757: 54304678
-    starting-at-height-7262757: 51976182
-    starting-at-height-7787757: 49747528
-    starting-at-height-8312757: 47614435
-    starting-at-height-8837757: 45572806
-    starting-at-height-9362757: 43618718
-    starting-at-height-9887757: 41748419
-    starting-at-height-10412757: 39958315
-    starting-at-height-10937757: 38244967
-    starting-at-height-11462757: 36605085
-    starting-at-height-11987757: 35035519
-    starting-at-height-12512757: 33533253
-    starting-at-height-13037757: 32095402
-    starting-at-height-13562757: 30719203
-    starting-at-height-14087757: 29402014
-    starting-at-height-14612757: 28141304
-    starting-at-height-15137757: 26934650
-    starting-at-height-15662757: 25779736
-    starting-at-height-16187757: 24674343
-    starting-at-height-16712757: 23616348
-    starting-at-height-17237757: 22603717
-    starting-at-height-17762757: 21634507
-    starting-at-height-18287757: 20706854
-    starting-at-height-18812757: 19818978
-    starting-at-height-19337757: 18969173
-    starting-at-height-19862757: 18155805
-    starting-at-height-20387757: 17377314
-    starting-at-height-20912757: 16632203
-    starting-at-height-21437757: 15919041
-    starting-at-height-21962757: 15236459
-    starting-at-height-22487757: 14583144
-    starting-at-height-23012757: 13957843
-    starting-at-height-23537757: 13359353
-    starting-at-height-24062757: 12786526
-    starting-at-height-24587757: 12238261
-    starting-at-height-25112757: 11713504
-    starting-at-height-25637757: 11211248
-    starting-at-height-26162757: 10730528
-    starting-at-height-26687757: 10270420
-    starting-at-height-27212757: 9830041
-    starting-at-height-27737757: 9408545
-    starting-at-height-28262757: 9005122
-    starting-at-height-28787757: 8618997
-    starting-at-height-29312757: 8249428
-    starting-at-height-29837757: 7895707
-    starting-at-height-30362757: 7557151
-    starting-at-height-30887757: 7233113
-    starting-at-height-31412757: 6922969
-    starting-at-height-31937757: 6626123
-    starting-at-height-32462757: 6342006
-    starting-at-height-32987757: 6070071
-    starting-at-height-33512757: 5809796
-    starting-at-height-34037757: 5560682
-    starting-at-height-34562757: 5322249
-    starting-at-height-35087757: 5094039
-    starting-at-height-35612757: 4875615
-    starting-at-height-36137757: 4666557
-    starting-at-height-36662757: 4466462
-    starting-at-height-37187757: 4274948
-    starting-at-height-37712757: 4091645
-    starting-at-height-38237757: 3916202
-    starting-at-height-38762757: 3748282
-    starting-at-height-39287757: 3587561
-    starting-at-height-39812757: 3433732
-    starting-at-height-40337757: 3286500
-    starting-at-height-40862757: 3145580
-    starting-at-height-41387757: 3010703
-    starting-at-height-41912757: 2881608
-    starting-at-height-42437757: 2758050
-    starting-at-height-42962757: 2639789
-    starting-at-height-43487757: 2526599
-    starting-at-height-44012757: 2418263
-    starting-at-height-44537757: 2314572
-    starting-at-height-45062757: 2215326
-    starting-at-height-45587757: 2120337
-    starting-at-height-46112757: 2029420
-    starting-at-height-46637757: 1942402
-    starting-at-height-47162757: 1859115
-    starting-at-height-47687757: 1779399
-    starting-at-height-48212757: 1703101
-    starting-at-height-48737757: 1630075
-    starting-at-height-49262757: 1560180
-    starting-at-height-49787757: 1493282
-    starting-at-height-50312757: 1429253
-    starting-at-height-50837757: 1367969
-    starting-at-height-51362757: 1309312
-    starting-at-height-51887757: 1253171
-    starting-at-height-52412757: 1199437
-    starting-at-height-52937757: 1148007
-    starting-at-height-53462757: 1098783
-    starting-at-height-53987757: 1051669
-    starting-at-height-54512757: 1006575
-    starting-at-height-55037757: 963414
-    starting-at-height-55562757: 922105
-    starting-at-height-56087757: 882566
-    starting-at-height-56612757: 844723
-    starting-at-height-57137757: 808503
-    starting-at-height-57662757: 773836
-    starting-at-height-58187757: 740655
-    starting-at-height-58712757: 708897
-    starting-at-height-59237757: 678500
-    starting-at-height-59762757: 649407
-    starting-at-height-60287757: 621562
-    starting-at-height-60812757: 594910
-    starting-at-height-61337757: 569401
-    starting-at-height-61862757: 544986
-    starting-at-height-62387757: 521618
-    starting-at-height-62912757: 499252
-    starting-at-height-63437757: 477845
-    starting-at-height-63962757: 457356
-    starting-at-height-64487757: 437745
-    starting-at-height-65012757: 418975
-    starting-at-height-65537757: 401010
-    starting-at-height-66062757: 383816
-    starting-at-height-66587757: 367358
-    starting-at-height-67112757: 351606
-    starting-at-height-67637757: 336530
-    starting-at-height-68162757: 322100
-    starting-at-height-68687757: 308289
-    starting-at-height-69212757: 295070
-    starting-at-height-69737757: 282418
-    starting-at-height-70262757: 270308
-    starting-at-height-70787757: 258718
-    starting-at-height-71312757: 247624
-    starting-at-height-71837757: 237007
-    starting-at-height-72362757: 226844
-    starting-at-height-72887757: 217118
-    starting-at-height-73412757: 207808
-    starting-at-height-73937757: 198897
-    starting-at-height-74462757: 190369
-    starting-at-height-74987757: 182206
-    starting-at-height-75512757: 174394
-    starting-at-height-76037757: 166916
-    starting-at-height-76562757: 159759
-    starting-at-height-77087757: 152908
-    starting-at-height-77612757: 146352
-    starting-at-height-78137757: 140077
-    starting-at-height-78662757: 134070
-    starting-at-height-79187757: 128322
-    starting-at-height-79712757: 122819
-    starting-at-height-80237757: 117553
-    starting-at-height-80762757: 112513
-    starting-at-height-81287757: 107688
-    starting-at-height-81812757: 103071
-    starting-at-height-82337757: 98651
-    starting-at-height-82862757: 94421
-    starting-at-height-83387757: 90372
-    starting-at-height-83912757: 86497
-    starting-at-height-84437757: 82789
-    starting-at-height-84962757: 79239
-    starting-at-height-85487757: 75841
-    starting-at-height-86012757: 72589
-    starting-at-height-86537757: 69477
-    starting-at-height-87062757: 66498
-    starting-at-height-87587757: 63646
-    starting-at-height-88112757: 60917
-    starting-at-height-88637757: 58305
-    starting-at-height-89162757: 55805
-    starting-at-height-89687757: 53412
-    starting-at-height-90212757: 51122
-    starting-at-height-90737757: 48930
-    starting-at-height-91262757: 46832
-    starting-at-height-91787757: 44824
-    starting-at-height-92312757: 42902
-    starting-at-height-92837757: 41062
-    starting-at-height-93362757: 39301
-    starting-at-height-93887757: 37616
-    starting-at-height-94412757: 36003
-    starting-at-height-94937757: 34460
-    starting-at-height-95462757: 32982
-    starting-at-height-95987757: 31568
-    starting-at-height-96512757: 30214
-    starting-at-height-97037757: 28919
-    starting-at-height-97562757: 27679
-    starting-at-height-98087757: 26492
-    starting-at-height-98612757: 25356
-    starting-at-height-99137757: 24269
-    starting-at-height-99662757: 23228
-    starting-at-height-100187757: 22232
-    starting-at-height-100712757: 21279
-    starting-at-height-101237757: 20366
-    starting-at-height-101762757: 19493
-    starting-at-height-102287757: 18657
-    starting-at-height-102812757: 17857
-    starting-at-height-103337757: 17091
-    starting-at-height-103862757: 16358
-    starting-at-height-104387757: 15657
-    starting-at-height-104912757: 14986
-    starting-at-height-105437757: 14343
-    starting-at-height-105962757: 13728
-    starting-at-height-106487757: 13139
-    starting-at-height-107012757: 12576
-    starting-at-height-107537757: 12037
-    starting-at-height-108062757: 11521
-    starting-at-height-108587757: 11027
-    starting-at-height-109112757: 10554
-    starting-at-height-109637757: 10101
-    starting-at-height-110162757: 9668
-    starting-at-height-110687757: 9254
-    starting-at-height-111212757: 8857
-    starting-at-height-111737757: 8477
-    starting-at-height-112262757: 8113
-    starting-at-height-112787757: 7766
-    starting-at-height-113312757: 7433
-    starting-at-height-113837757: 7114
-    starting-at-height-114362757: 6809
-    starting-at-height-114887757: 6517
-    starting-at-height-115412757: 6237
-    starting-at-height-115937757: 5970
-    starting-at-height-116462757: 5714
-    starting-at-height-116987757: 5469
-    starting-at-height-117512757: 5234
-    starting-at-height-118037757: 5010
-    starting-at-height-118562757: 4795
-    starting-at-height-119087757: 4589
-    starting-at-height-119612757: 4393
-    starting-at-height-120137757: 4204
-    starting-at-height-120662757: 4024
-    starting-at-height-121187757: 3851
-    starting-at-height-121712757: 3686
-    starting-at-height-122237757: 3528
-    starting-at-height-122762757: 3377
-    starting-at-height-123287757: 3232
-    starting-at-height-123812757: 3093
-    starting-at-height-124337757: 2961
-    starting-at-height-124862757: 2834
-    starting-at-height-125387757: 2712
-    starting-at-height-125912757: 2596
-    starting-at-height-126437757: 2485
-    starting-at-height-126962757: 2378
-    starting-at-height-127487757: 2276
-    starting-at-height-128012757: 2178
-    starting-at-height-128537757: 2085
-    starting-at-height-129062757: 1996
-    starting-at-height-129587757: 1910
-    starting-at-height-130112757: 1828
-    starting-at-height-130637757: 1750
-    starting-at-height-131162757: 1675
-    starting-at-height-131687757: 1603
-    starting-at-height-132212757: 1534
-    starting-at-height-132737757: 1468
-    starting-at-height-133262757: 1405
-    starting-at-height-133787757: 1345
-    starting-at-height-134312757: 1287
-    starting-at-height-134837757: 1232
-    starting-at-height-135362757: 1179
-    starting-at-height-135887757: 1129
-    starting-at-height-136412757: 1080
-    starting-at-height-136937757: 1034
-    starting-at-height-137462757: 990
-    starting-at-height-137987757: 947
-    starting-at-height-138512757: 907
-    starting-at-height-139037757: 868
-    starting-at-height-139562757: 830
-    starting-at-height-140087757: 795
-    starting-at-height-140612757: 761
-    starting-at-height-141137757: 728
-    starting-at-height-141662757: 697
-    starting-at-height-142187757: 667
-    starting-at-height-142712757: 638
-    starting-at-height-143237757: 611
-    starting-at-height-143762757: 585
-    starting-at-height-144287757: 560
-    starting-at-height-144812757: 536
-    starting-at-height-145337757: 513
-    starting-at-height-145862757: 491
-    starting-at-height-146387757: 470
-    starting-at-height-146912757: 449
-    starting-at-height-147437757: 430
-    starting-at-height-147962757: 412
-    starting-at-height-148487757: 394
-    starting-at-height-149012757: 377
-    starting-at-height-149537757: 361
-    starting-at-height-150062757: 345
-    starting-at-height-150587757: 331
-    starting-at-height-151112757: 316
-    starting-at-height-151637757: 303
-    starting-at-height-152162757: 290
-    starting-at-height-152687757: 277
-    starting-at-height-153212757: 265
-    starting-at-height-153737757: 254
-    starting-at-height-154262757: 243
-    starting-at-height-154787757: 233
-    starting-at-height-155312757: 223
-    starting-at-height-155837757: 213
-    starting-at-height-156362757: 204
-    starting-at-height-156887757: 195
-    starting-at-height-157412757: 187
-    starting-at-height-157937757: 179
-    starting-at-height-158462757: 171
-    starting-at-height-158987757: 164
-    starting-at-height-159512757: 157
-    starting-at-height-160037757: 150
-    starting-at-height-160562757: 143
-    starting-at-height-161087757: 137
-    starting-at-height-161612757: 131
-    starting-at-height-162137757: 126
-    starting-at-height-162662757: 120
-    starting-at-height-163187757: 115
-    starting-at-height-163712757: 110
-    starting-at-height-164237757: 105
-    starting-at-height-164762757: 101
-    starting-at-height-165287757: 97
-    starting-at-height-165812757: 92
-    starting-at-height-166337757: 88
-    starting-at-height-166862757: 85
-    starting-at-height-167387757: 81
-    starting-at-height-167912757: 77
-    starting-at-height-168437757: 74
-    starting-at-height-168962757: 71
-    starting-at-height-169487757: 68
-    starting-at-height-170012757: 65
-    starting-at-height-170537757: 62
-    starting-at-height-171062757: 59
-    starting-at-height-171587757: 57
-    starting-at-height-172112757: 54
-    starting-at-height-172637757: 52
-    starting-at-height-173162757: 50
-    starting-at-height-173687757: 48
-    starting-at-height-174212757: 46
-    starting-at-height-174737757: 44
-    starting-at-height-175262757: 42
-    starting-at-height-175787757: 40
-    starting-at-height-176312757: 38
-    starting-at-height-176837757: 37
-    starting-at-height-177362757: 35
-    starting-at-height-177887757: 33
-    starting-at-height-178412757: 32
-    starting-at-height-178937757: 31
-    starting-at-height-179462757: 29
-    starting-at-height-179987757: 28
-    starting-at-height-180512757: 27
-    starting-at-height-181037757: 26
-    starting-at-height-181562757: 24
-    starting-at-height-182087757: 23
-    starting-at-height-182612757: 22
-    starting-at-height-183137757: 21
-    starting-at-height-183662757: 20
-    starting-at-height-184187757: 20
-    starting-at-height-184712757: 19
-    starting-at-height-185237757: 18
-    starting-at-height-185762757: 17
-    starting-at-height-186287757: 16
-    starting-at-height-186812757: 16
-    starting-at-height-187337757: 15
-    starting-at-height-187862757: 14
-    starting-at-height-188387757: 14
-    starting-at-height-188912757: 13
-    starting-at-height-189437757: 12
-    starting-at-height-189962757: 12
-    starting-at-height-190487757: 11
-    starting-at-height-191012757: 11
-    starting-at-height-191537757: 10
-    starting-at-height-192062757: 10
-    starting-at-height-192587757: 9
-    starting-at-height-193112757: 9
-    starting-at-height-193637757: 9
-    starting-at-height-194162757: 8
-    starting-at-height-194687757: 8
-    starting-at-height-195212757: 8
-    starting-at-height-195737757: 7
-    starting-at-height-196262757: 7
-    starting-at-height-196787757: 7
-    starting-at-height-197312757: 6
-    starting-at-height-197837757: 6
-    starting-at-height-198362757: 6
-    starting-at-height-198887757: 5
-    starting-at-height-199412757: 5
-    starting-at-height-199937757: 5
-    starting-at-height-200462757: 5
-    starting-at-height-200987757: 4
-    starting-at-height-201512757: 4
-    starting-at-height-202037757: 4
-    starting-at-height-202562757: 4
-    starting-at-height-203087757: 4
-    starting-at-height-203612757: 4
-    starting-at-height-204137757: 3
-    starting-at-height-204662757: 3
-    starting-at-height-205187757: 3
-    starting-at-height-205712757: 3
-    starting-at-height-206237757: 3
-    starting-at-height-206762757: 3
-    starting-at-height-207287757: 2
-    starting-at-height-207812757: 2
-    starting-at-height-208337757: 2
-    starting-at-height-208862757: 2
-    starting-at-height-209387757: 2
-    starting-at-height-209912757: 2
-    starting-at-height-210437757: 2
-    starting-at-height-210962757: 2
-    starting-at-height-211487757: 2
-    starting-at-height-212012757: 2
-    starting-at-height-212537757: 1
-    starting-at-height-213062757: 1
-    starting-at-height-213587757: 1
-    starting-at-height-214112757: 1
-    starting-at-height-214637757: 1
-    starting-at-height-215162757: 1
-    starting-at-height-215687757: 1
-    starting-at-height-216212757: 1
-    starting-at-height-216737757: 1
-    starting-at-height-217262757: 1
-    starting-at-height-217787757: 1
-    starting-at-height-218312757: 1
-    starting-at-height-218837757: 1
-    starting-at-height-219362757: 1
-    starting-at-height-219887757: 1
-    starting-at-height-220412757: 1
-    starting-at-height-220937757: 0
+    starting-at-height-1: 990
+    starting-at-height-40430: 989
+    starting-at-height-80640: 992
+    starting-at-height-362880: 965
+    starting-at-height-403200: 942
+    starting-at-height-443520: 924
+    starting-at-height-483840: 909
+    starting-at-height-524160: 897
+    starting-at-height-564480: 886
+    starting-at-height-604800: 876
+    starting-at-height-645120: 868
+    starting-at-height-685440: 846
+    starting-at-height-725760: 827
+    starting-at-height-766080: 809
+    starting-at-height-806400: 794
+    starting-at-height-846720: 779
+    starting-at-height-887040: 767
+    starting-at-height-927360: 755
+    starting-at-height-967680: 744
+    starting-at-height-1008000: 724
+    starting-at-height-1048320: 706
+    starting-at-height-1088640: 689
+    starting-at-height-1128960: 673
+    starting-at-height-1169280: 659
+    starting-at-height-1209600: 645
+    starting-at-height-1249920: 632
+    starting-at-height-1290240: 620
+    starting-at-height-1330560: 609
+    starting-at-height-1370880: 598
+    starting-at-height-2217600: 397
+    starting-at-height-3064320: 320
+    starting-at-height-3911040: 276
+    starting-at-height-4757760: 248
+    starting-at-height-5604480: 228
+    starting-at-height-6451200: 214
+    starting-at-height-7297920: 203
+    starting-at-height-8144640: 194
+    starting-at-height-9152640: 184
+    starting-at-height-10241280: 174
+    starting-at-height-11491200: 164
+    starting-at-height-12862080: 154
+    starting-at-height-14434560: 144
+    starting-at-height-16168320: 135
+    starting-at-height-18144000: 126
+    starting-at-height-20321280: 117
+    starting-at-height-22780800: 109
+    starting-at-height-25522560: 101
+    starting-at-height-28586880: 94
+    starting-at-height-32054400: 87
+    starting-at-height-35884800: 80
+    starting-at-height-40239360: 74
+    starting-at-height-45077760: 68
+    starting-at-height-50520960: 63
+    starting-at-height-56568960: 58
+    starting-at-height-63383040: 53
+    starting-at-height-71003520: 49
+    starting-at-height-79551360: 45
+    starting-at-height-89107200: 41
+    starting-at-height-99832320: 38
+    starting-at-height-111807360: 35
+    starting-at-height-125233920: 32
+    starting-at-height-140273280: 29
+    starting-at-height-157127040: 27
+    starting-at-height-175996800: 24
+    starting-at-height-197124480: 22
+    starting-at-height-220792320: 20
+    starting-at-height-247322880: 19
+    starting-at-height-276998400: 17
+    starting-at-height-310262400: 0
 knownPeers:
     api-node:
-        - publicKey: a11c90064f5506d998accb1fcfc5986004d0edba08c6d2c0e589ba9466035266
+        - publicKey: c461315ff50a4b344b7349ab9377df72f5db63fef72cbb4fdf8b0b00b616056d
           endpoint:
-              host: api-01.ap-northeast-1.testnet.symboldev.network
+              host: 20.52.130.150
               port: 7900
           metadata:
-              name: api-01-ap-northeast-1
+              name: LaRed-testnet-dual1
               roles: Api,Peer,Voting
-        - publicKey: fea03571d125d1a5b8663ab3e80b1f6b5cf9e6e3dff25034f5738fadeab201cb
+        - publicKey: 74b0bf69aa7c6c912698978da8e7aa6ccf461899c93b4c83cdbba95bb98956af
           endpoint:
-              host: api-01.eu-west-1.testnet.symboldev.network
+              host: 20.52.134.220
               port: 7900
           metadata:
-              name: api-01-eu-west-1
+              name: LaRed-testnet-dual2
               roles: Api,Peer,Voting
-        - publicKey: 7CB6F76A7F6F3C573F98296BB45666BF45880732603399FC03D12FB2E9181B11
-          endpoint:
-              host: api-01.us-west-1.testnet.symboldev.network
-              port: 7900
-          metadata:
-              name: api-01-us-west-1
-              roles: Api,Voting
     peer-node:
-        - publicKey: 4c4ffe262f779ef4b970b1560c1efa467051f85d7925e5f590f4267545b292c2
+        - publicKey: 8b9912e15040a59a03dd74ae81ad5135d2a7177859fa83af4ec9fce7d9d5048a
           endpoint:
-              host: beacon-01.us-east-1.testnet.symboldev.network
+              host: 20.52.132.101
               port: 7900
           metadata:
-              name: beacon-01-us-east-1
+              name: LaRed-testnet-peer1
               roles: Peer,Voting
-        - publicKey: de8e3b886edcf138c40c0aa706b95a72ec379a1c210fcb11467efd5b864c0ab0
+        - publicKey: c461315ff50a4b344b7349ab9377df72f5db63fef72cbb4fdf8b0b00b616056d
           endpoint:
-              host: beacon-01.eu-west-1.testnet.symboldev.network
+              host: 20.52.130.150
               port: 7900
           metadata:
-              name: beacon-01-eu-west-1
-              roles: Peer,Voting
-        - publicKey: d4687a30b7d949a378c91c17ff6c64d8bc8ad041273b809f2711b2165afda2e1
+              name: LaRed-testnet-dual1
+              roles: Api,Peer,Voting
+        - publicKey: 74b0bf69aa7c6c912698978da8e7aa6ccf461899c93b4c83cdbba95bb98956af
           endpoint:
-              host: beacon-01.us-west-1.testnet.symboldev.network
+              host: 20.52.134.220
               port: 7900
           metadata:
-              name: beacon-01-us-west-1
-              roles: Peer,Voting
-        - publicKey: 059d07aa3c86e42b8d0d87fb36d2fa63dbce5d0e22c59560a3cd3a72fe6a8b3d
-          endpoint:
-              host: beacon-01.ap-southeast-1.testnet.symboldev.network
-              port: 7900
-          metadata:
-              name: beacon-01-ap-southeast-1
-              roles: Peer,Voting
-        - publicKey: c2627dabe47a4154ce658322fec3fe4b7b403e0523351dbad0a95e04db0c87f1
-          endpoint:
-              host: beacon-01.eu-central-1.testnet.symboldev.network
-              port: 7900
-          metadata:
-              name: beacon-01-eu-central-1
-              roles: Peer,Voting
-        - publicKey: 87865009522acc0b68aa71fec2ac4d452a33f2aad3d16138cf56194b2e8bc60e
-          endpoint:
-              host: beacon-01.ap-northeast-1.testnet.symboldev.network
-              port: 7900
-          metadata:
-              name: beacon-01-ap-northeast-1
-              roles: Peer,Voting
+              name: LaRed-testnet-dual2
+              roles: Api,Peer,Voting

@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-symbol-bootstrap healthCheck -t target/bootstrap $1
+lared-node-bootstrap healthCheck -t target/bootstrap $1

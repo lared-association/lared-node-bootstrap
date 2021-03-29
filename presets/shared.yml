@@ -16,7 +16,7 @@ importanceGrouping: 180
 importanceActivityPercentage: 5
 maxDifficultyBlocks: 60
 maxRollbackBlocks: 0
-maxTransactionLifetime: 6h
+maxTransactionLifetime: 24h
 maxBlockFutureTime: 500ms
 maxNamespaceDuration: 365d
 namespaceGracePeriodDuration: 30d
@@ -36,8 +36,8 @@ votingSetGrouping: 180
 maxVotingKeysPerAccount: 3
 maxTransactionsPerAggregate: 100
 maxCosignaturesPerAggregate: 25
-harvestBeneficiaryPercentage: 10
-harvestNetworkPercentage: 5
+harvestBeneficiaryPercentage: 15
+harvestNetworkPercentage: 10
 rootNamespaceRentalFeePerBlock: 1
 childNamespaceRentalFee: 100
 enableStrictCosignatureCheck: false
@@ -213,5 +213,5 @@ maxSubscriptions: 300
 
 #voting
 votingKeyStartEpoch: 1
-votingKeyEndEpoch: 360
+votingKeyEndEpoch: 26280
 enableRevoteOnBoot: true

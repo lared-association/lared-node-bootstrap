@@ -20,8 +20,8 @@ import { CommandUtils } from '../service/CommandUtils';
 
 export default class Stop extends Command {
     static description =
-        'It stops the docker-compose network if running (symbol-bootstrap started with --detached). This is just a wrapper for the `docker-compose down` bash call.';
-    static examples = [`$ symbol-bootstrap stop`];
+        'It stops the docker-compose network if running (lared-node-bootstrap started with --detached). This is just a wrapper for the `docker-compose down` bash call.';
+    static examples = [`$ lared-node-bootstrap stop`];
 
     static flags = {
         help: CommandUtils.helpFlag,

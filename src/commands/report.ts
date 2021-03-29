@@ -21,7 +21,7 @@ import { CommandUtils } from '../service/CommandUtils';
 export default class Clean extends Command {
     static description = 'it generates reStructuredText (.rst) reports describing the configuration of each node.';
 
-    static examples = [`$ symbol-bootstrap report`];
+    static examples = [`$ lared-node-bootstrap report`];
 
     static flags = {
         help: CommandUtils.helpFlag,

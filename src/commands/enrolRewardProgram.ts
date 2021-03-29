@@ -25,11 +25,11 @@ export default class EnrolRewardProgram extends Command {
 Currently, the only program that can be enrolled post-launch is 'SuperNode'.`;
 
     static examples = [
-        `$ symbol-bootstrap enrolRewardProgram`,
-        `$ symbol-bootstrap enrolRewardProgram --noPassword`,
-        `$ symbol-bootstrap enrolRewardProgram --useKnownRestGateways`,
-        `$ symbol-bootstrap enrolRewardProgram --password 1234 --url http://external-rest:3000`,
-        `$ echo "$MY_ENV_VAR_PASSWORD" | symbol-bootstrap enrolRewardProgram --url http://external-rest:3000`,
+        `$ lared-node-bootstrap enrolRewardProgram`,
+        `$ lared-node-bootstrap enrolRewardProgram --noPassword`,
+        `$ lared-node-bootstrap enrolRewardProgram --useKnownRestGateways`,
+        `$ lared-node-bootstrap enrolRewardProgram --password 1234 --url http://external-rest:3000`,
+        `$ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap enrolRewardProgram --url http://external-rest:3000`,
     ];
 
     static flags = {

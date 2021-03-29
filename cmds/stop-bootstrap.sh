@@ -2,4 +2,4 @@
 set -e
 
 # docker rm -f $(docker ps -aq)
-symbol-bootstrap stop -t target/bootstrap
+lared-node-bootstrap stop -t target/bootstrap

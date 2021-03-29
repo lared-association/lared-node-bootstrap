@@ -25,7 +25,7 @@ node_modules
 /target/
 /.idea/
 /logs.log
-symbol-bootstrap-*.tgz
+lared-node-bootstrap-*.tgz
 /.eslintcache
 coverage
 /ts-docs/
