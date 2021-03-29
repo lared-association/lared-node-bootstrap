@@ -24,7 +24,7 @@ describe('RunService', () => {
     const target = 'target/tests/BootstrapService.standard';
 
     it('healthCheck', async () => {
-        const bootstrapService = new BootstrapService('.');
+        const bootstrapService = new BootstrapService();
         const config: StartParams = {
             report: false,
             upgrade: false,
@@ -52,7 +52,7 @@ describe('RunService', () => {
     });
 
     it('resetData', async () => {
-        const bootstrapService = new BootstrapService('.');
+        const bootstrapService = new BootstrapService();
         const config: StartParams = {
             report: false,
             upgrade: false,
@@ -74,6 +74,6 @@ describe('RunService', () => {
         expect(existsSync(nodeDataFolder)).eq(false);
         const service = new RunService({ ...config });
         await service.resetData();
-        expect(existsSync(join(nodeDataFolder, '00000', '00001.dat'))).eq(true);
+        expect(existsSync(join(nodeDataFolder, '00000', '00001.dat'))).eq(false);
     });
 });

@@ -18,6 +18,17 @@ import { NetworkType } from 'symbol-sdk';
 import { Preset } from '../service';
 import { NodeType } from './NodeType';
 
+export enum PrivateKeySecurityMode {
+    ENCRYPT = 'ENCRYPT',
+    PROMPT_MAIN = 'PROMPT_MAIN',
+    PROMPT_MAIN_TRANSPORT = 'PROMPT_MAIN_TRANSPORT',
+    PROMPT_ALL = 'PROMPT_ALL',
+}
+
+export type DeepPartial<T> = {
+    [P in keyof T]?: DeepPartial<T[P]>;
+};
+
 export interface DockerServicePreset {
     ipv4_address?: string;
     openPort?: boolean | number | string;
@@ -59,26 +70,44 @@ export interface NemesisPreset {
 }
 
 export interface NodePreset extends DockerServicePreset {
+    name: string;
+    harvesting: boolean;
+    api: boolean;
+    voting: boolean;
+
+    syncsource: boolean;
+    filespooling: boolean;
+    partialtransaction: boolean;
+    sinkType: 'Async' | 'Sync';
+    enableSingleThreadPool: boolean;
+    addressextraction: boolean;
+    mongo: boolean;
+    zeromq: boolean;
+    enableAutoSyncCleanup: boolean;
+
     // At least these properties.
     // If true, harvesterSigningPrivateKey != mainPrivateKey and harvesterSigningPrivateKey will be linked to mainPrivateKey
     serverVersion?: string;
     nodeUseRemoteAccount?: boolean;
     repeat?: number;
-    harvesting: boolean;
-    api: boolean;
-    voting: boolean;
-    databaseHost: string;
+    databaseHost?: string;
     host?: string;
-    name: string;
-    roles: string;
+    roles?: string;
     friendlyName?: string;
+    beneficiaryAddress?: string;
 
     // Optional private keys. If not provided, bootstrap will generate random ones.
     mainPrivateKey?: string;
+    mainPublicKey?: string;
+
     transportPrivateKey?: string;
+    transportPublicKey?: string;
+
     remotePrivateKey?: string;
+    remotePublicKey?: string;
+
     vrfPrivateKey?: string;
-    votingPrivateKey?: string;
+    vrfPublicKey?: string;
 
     //Broker specific
     brokerName?: string;
@@ -88,10 +117,17 @@ export interface NodePreset extends DockerServicePreset {
     brokerExcludeDockerService?: boolean;
     brokerCompose?: any;
     brokerDockerComposeDebugMode?: boolean;
-    //super node
-    supernode?: boolean | string;
-    supernodeOpenPort?: boolean | number | string;
+
+    //Reward program
+    rewardProgram?: string;
+    rewardProgramAgentIpv4_address?: string;
+    rewardProgramAgentOpenPort?: boolean | number | string;
+    rewardProgramAgentExcludeDockerService?: boolean;
+    rewardProgramAgentCompose?: any;
+    rewardProgramAgentHost?: string;
+    rewardProgramAgentDockerComposeDebugMode?: boolean;
     agentUrl?: string; //calculated if not provided.
+
     restGatewayUrl?: string; // calculated if not provided;
 }
 
@@ -133,11 +169,13 @@ export interface FaucetPreset extends DockerServicePreset {
 
 export interface ConfigPreset {
     preset: Preset;
+    privateKeySecurityMode: string;
     votingKeysDirectory: string;
-    agentBinaryLocation: string;
     serverVersion: string;
+    sinkAddress?: string;
     epochAdjustment: string;
     catapultAppFolder: string;
+    dataDirectory: string;
     subnet?: string;
     transactionsDirectory: string;
     faucetUrl?: string;
@@ -145,11 +183,14 @@ export interface ConfigPreset {
     nemesisSeedFolder?: string; // Optional seed folder if user provides an external seed/00000 folder.
     assemblies?: string;
     databaseName: string;
+    nonVotingUnfinalizedBlocksDuration: string;
+    votingUnfinalizedBlocksDuration?: string;
     nemesisSignerPublicKey: string;
     nemesisGenerationHashSeed: string;
     harvestNetworkFeeSinkAddress?: string;
     mosaicRentalFeeSinkAddress?: string;
     namespaceRentalFeeSinkAddress?: string;
+    beneficiaryAddress?: string;
     nodeUseRemoteAccount: boolean;
     networkheight: boolean;
     dockerComposeVersion: number | string;
@@ -176,9 +217,12 @@ export interface ConfigPreset {
     symbolWalletImage: string;
     symbolFaucetImage: string;
     symbolServerImage: string;
+    symbolAgentImage: string;
     symbolRestImage: string;
     votingKeyStartEpoch: number;
     votingKeyEndEpoch: number;
-    supernodeControllerPublicKey?: string;
+    rewardProgramControllerPublicKey?: string;
     votingKeyLinkV2: number | undefined;
+    peersP2PListLimit: number;
+    peersApiListLimit: number;
 }

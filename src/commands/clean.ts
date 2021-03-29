@@ -16,15 +16,16 @@
 
 import { Command } from '@oclif/command';
 import { BootstrapUtils } from '../service';
+import { CommandUtils } from '../service/CommandUtils';
 
 export default class Clean extends Command {
     static description = 'It removes the target folder deleting the generated configuration and data';
 
-    static examples = [`$ lared-node-bootstrap clean`];
+    static examples = [`$ symbol-bootstrap clean`];
 
     static flags = {
-        help: BootstrapUtils.helpFlag,
-        target: BootstrapUtils.targetFlag,
+        help: CommandUtils.helpFlag,
+        target: CommandUtils.targetFlag,
     };
 
     public async run(): Promise<void> {

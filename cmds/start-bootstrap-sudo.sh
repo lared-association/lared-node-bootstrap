@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-lared-node-bootstrap start -p bootstrap -r  -u '' -t target/bootstrap --password 1234 $1
+symbol-bootstrap start -p bootstrap -r  -u '' -t target/bootstrap --password 1234 $1

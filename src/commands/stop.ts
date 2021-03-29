@@ -16,15 +16,16 @@
 
 import { Command } from '@oclif/command';
 import { BootstrapUtils, RunService } from '../service';
+import { CommandUtils } from '../service/CommandUtils';
 
 export default class Stop extends Command {
     static description =
-        'It stops the docker-compose network if running (lared-node-bootstrap started with --detached). This is just a wrapper for the `docker-compose down` bash call.';
-    static examples = [`$ lared-node-bootstrap stop`];
+        'It stops the docker-compose network if running (symbol-bootstrap started with --detached). This is just a wrapper for the `docker-compose down` bash call.';
+    static examples = [`$ symbol-bootstrap stop`];
 
     static flags = {
-        help: BootstrapUtils.helpFlag,
-        target: BootstrapUtils.targetFlag,
+        help: CommandUtils.helpFlag,
+        target: CommandUtils.targetFlag,
     };
 
     public run(): Promise<void> {

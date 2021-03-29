@@ -3,22 +3,21 @@ databases:
       openPort: false
 nodes:
     - harvesting: true
-      voting: true
+      voting: false
       api: true
-      name: 'lared-api-node'
-      host: ''
+      name: 'api-node'
       databaseHost: 'db'
-      brokerName: 'lared-api-broker'
+      brokerName: 'api-broker'
       openPort: true
-      brokerOpenPort: true
+      brokerOpenPort: false
       trustedHosts: 127.0.0.1, 172.20.0.25
       localNetworks: 127.0.0.1, 172.20.0.25
 gateways:
     - name: 'rest-gateway'
-      apiNodeName: 'lared-api-node'
-      apiNodeHost: 'lared-api-node'
-      apiNodeBrokerHost: 'lared-api-broker'
-      description: 'LaRed testnet REST client'
+      apiNodeName: 'api-node'
+      apiNodeHost: 'api-node'
+      apiNodeBrokerHost: 'api-broker'
+      description: 'catapult public test network'
       databaseHost: 'db'
       openPort: true
       ipv4_address: 172.20.0.25

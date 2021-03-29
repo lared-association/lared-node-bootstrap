@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { flags } from '@oclif/command';
 import { spawn } from 'child_process';
 import { textSync } from 'figlet';
 import {
@@ -33,7 +32,7 @@ import * as Handlebars from 'handlebars';
 import { get } from 'https';
 import * as _ from 'lodash';
 import { platform, totalmem } from 'os';
-import { basename, join } from 'path';
+import { basename, join, resolve } from 'path';
 import { Convert, Deadline, DtoMapping, LinkAction, NetworkType, Transaction, UInt64, VotingKeyLinkTransaction } from 'symbol-sdk';
 import * as util from 'util';
 import { LogType } from '../logger';
@@ -77,22 +76,9 @@ export class BootstrapUtils {
     private static readonly pulledImages: string[] = [];
 
     public static readonly VERSION = version;
+    public static readonly DEFAULT_ROOT_FOLDER = BootstrapUtils.resolveRootFolder();
 
-    private static stopProcess = false;
-
-    public static helpFlag = flags.help({ char: 'h', description: 'It shows the help of this command.' });
-
-    public static targetFlag = flags.string({
-        char: 't',
-        description: 'The target folder where the lared-node-bootstrap network is generated',
-        default: BootstrapUtils.defaultTargetFolder,
-    });
-
-    public static passwordFlag = flags.string({
-        description: `A password used to encrypt and decrypted generated addresses.yml and preset.yml files. When providing a password, private keys would be encrypted. Keep this password in a secure place!`,
-        default: '',
-        hidden: true,
-    });
+    public static stopProcess = false;
 
     private static onProcessListener = (() => {
         process.on('SIGINT', () => {
@@ -238,7 +224,7 @@ export class BootstrapUtils {
     }
 
     public static showBanner(): void {
-        console.log(textSync('lared-node-bootstrap', { horizontalLayout: 'full' }));
+        console.log(textSync('symbol-bootstrap', { horizontalLayout: 'fitted' }));
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -268,6 +254,14 @@ export class BootstrapUtils {
         } catch (e) {
             logger.warn(`Image ${image} could not be pulled!`);
         }
+    }
+
+    public static resolveRootFolder(): string {
+        const rootFolder = resolve(__dirname, '../..');
+        if (!existsSync(join(rootFolder, 'presets', 'shared.yml'))) {
+            throw new Error(`Root Folder ${rootFolder} does not look right!`);
+        }
+        return rootFolder;
     }
 
     public static async runImageUsingExec({
@@ -388,6 +382,7 @@ export class BootstrapUtils {
                         } else {
                             await fsPromises.copyFile(fromPath, destinationFile);
                         }
+                        await fsPromises.chmod(destinationFile, 0o600);
                     }
                 } else if (stat.isDirectory()) {
                     await fsPromises.mkdir(toPath, { recursive: true });
@@ -445,12 +440,12 @@ export class BootstrapUtils {
             try {
                 return CryptoUtils.decrypt(object, password);
             } catch (e) {
-                throw new KnownError(`Cannot decrypt file ${fileLocation}. Have you used the right --password param?`);
+                throw new KnownError(`Cannot decrypt file ${fileLocation}. Have you used the right password?`);
             }
         } else {
             if (password !== false && CryptoUtils.encryptedCount(object) > 0) {
                 throw new KnownError(
-                    `File ${fileLocation} seems to be encrypted but no password has been provided. Have you used the --password param?`,
+                    `File ${fileLocation} seems to be encrypted but no password has been provided. Have you entered the right password?`,
                 );
             }
         }
@@ -657,7 +652,7 @@ export class BootstrapUtils {
         return '0x' + (numberAsString.match(/\w{1,4}(?=(\w{4})*$)/g) || [numberAsString]).join("'");
     }
     public static toSimpleHex(renderedText: string): string {
-        return renderedText.split("'").join('').replace(/^(0x)/, '');
+        return renderedText.toString().split("'").join('').replace(/^(0x)/, '');
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -737,7 +732,7 @@ export class BootstrapUtils {
         writeFileSync(file, Convert.hexToUint8(BootstrapUtils.toAns1(privateKey)));
     }
 
-    private static validatePassword(password: string): string {
+    public static validatePassword(password: string): string {
         const passwordMinSize = 4;
         if (password.length < passwordMinSize) {
             throw new KnownError(`Password is too short. It should have at least ${passwordMinSize} characters!`);

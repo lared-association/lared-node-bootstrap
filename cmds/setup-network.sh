@@ -1,2 +1,2 @@
 #!/bin/bash
-lared-node-bootstrap config -r
+symbol-bootstrap config -r

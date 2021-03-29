@@ -16,16 +16,16 @@
 
 import { Command } from '@oclif/command';
 import { BootstrapService, BootstrapUtils } from '../service';
+import { CommandUtils } from '../service/CommandUtils';
 
 export default class ResetData extends Command {
     static description = 'It removes the data keeping the generated configuration, certificates, keys and block 1.';
 
-    static examples = [`$ lared-node-bootstrap resetData`];
+    static examples = [`$ symbol-bootstrap resetData`];
 
     static flags = {
-        help: BootstrapUtils.helpFlag,
-        target: BootstrapUtils.targetFlag,
-        password: BootstrapUtils.passwordFlag,
+        help: CommandUtils.helpFlag,
+        target: CommandUtils.targetFlag,
     };
 
     public async run(): Promise<void> {
