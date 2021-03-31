@@ -5,3 +5,4 @@ nodes:
       api: false
       name: 'LaRed-peer-node'
       openPort: true
+      host: ''

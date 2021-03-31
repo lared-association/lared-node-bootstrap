@@ -6,6 +6,7 @@ nodes:
       voting: true
       api: true
       name: 'LaRed-api-node'
+      host: ''
       databaseHost: 'db'
       brokerName: 'LaRed-api-broker'
       openPort: true

@@ -4,9 +4,9 @@ nodePort: 7900
 enableCacheDatabaseStorage: true
 enableVerifiableState: true
 enableVerifiableReceipts: true
-initialCurrencyAtomicUnits: 7831975436000000
-maxMosaicAtomicUnits: 9000000000000000
-totalChainImportance: 7831975436000000
+initialCurrencyAtomicUnits: 420000000000000
+maxMosaicAtomicUnits: 5000000000000000
+totalChainImportance: 420000
 minHarvesterBalance: 10000000000
 maxHarvesterBalance: 50000000000000
 minVoterBalance: 1500000000000
@@ -23,9 +23,9 @@ namespaceGracePeriodDuration: 30d
 maxAccountRestrictionValues: 512
 maxMosaicRestrictionValues: 20
 maxMessageSize: 1024
-reservedRootNamespaceNames: 'symbol, symbl, xym, xem, nem, user, account, org, com, biz, net, edu, mil, gov, info'
+reservedRootNamespaceNames: 'xem, nem, user, account, org, com, biz, net, edu, mil, gov, info'
 defaultDynamicFeeMultiplier: 1000
-minFeeMultiplier: 100
+minFeeMultiplier: 10
 maxTimeBehindPullTransactionsStart: 5m
 epochAdjustment: 1573430400s
 nodeEqualityStrategy: host
@@ -34,12 +34,12 @@ minVotingKeyLifetime: 28
 mosaicRentalFee: 500
 votingSetGrouping: 180
 maxVotingKeysPerAccount: 3
-maxTransactionsPerAggregate: 100
-maxCosignaturesPerAggregate: 25
+maxTransactionsPerAggregate: 1000
+maxCosignaturesPerAggregate: 15
 harvestBeneficiaryPercentage: 15
 harvestNetworkPercentage: 10
 rootNamespaceRentalFeePerBlock: 1
-childNamespaceRentalFee: 100
+childNamespaceRentalFee: 1
 enableStrictCosignatureCheck: false
 enableBondedAggregateSupport: true
 maxBondedTransactionLifetime: 48h
