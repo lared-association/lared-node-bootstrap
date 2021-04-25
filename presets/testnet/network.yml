@@ -6,7 +6,6 @@ maxHarvesterBalance: 420000
 minVoterBalance: 2000
 networkType: 152
 minNamespaceDuration: 1m
-
 assemblies: 'api, dual, peer'
 harvestBeneficiaryPercentage: 15
 batchVerificationRandomSource: /dev/urandom
@@ -27,15 +26,10 @@ harvestNetworkFeeSinkAddress: TBCGCKI6K5Z5BUL7WXTNXRTHP4WBZWCTZ6YKK7Y
 mosaicRentalFeeSinkAddress: TDMJYOW77JYNLIDSU6BA57YEHM337ZLQWLEDCNQ
 namespaceRentalFeeSinkAddress: TCZW3TWABIQYM2FWRHCVOLTICTJ5KAMSS3G3XDY
 faucetUrl: 'http://faucet.lared.superhow.net'
-symbolServerToolsImage: symbolplatform/symbol-server:tools-gcc-0.10.1.8
-symbolServerImage: symbolplatform/symbol-server:gcc-0.10.1.8
-minPartnerNodeVersion: 0.10.0.8
-maxPartnerNodeVersion: 1.0.0.0
-serverVersion: 0.10.1.8
-childNamespaceRentalFee: 1
 knownRestGateways:
-    - 'http://20.52.130.150:3000'
     - 'http://20.52.134.220:3000'
+    - 'http://20.52.130.150:3000'
+
 trustedHosts:
 inflation:
     starting-at-height-1: 990

@@ -7,9 +7,9 @@ enableVerifiableReceipts: true
 initialCurrencyAtomicUnits: 420000000000000
 maxMosaicAtomicUnits: 5000000000000000
 totalChainImportance: 420000
-minHarvesterBalance: 10000000000
-maxHarvesterBalance: 50000000000000
-minVoterBalance: 1500000000000
+minHarvesterBalance: 200
+maxHarvesterBalance: 420000
+minVoterBalance: 2000
 blockGenerationTargetTime: 15s
 blockTimeSmoothingFactor: 3000
 importanceGrouping: 180
@@ -19,7 +19,7 @@ maxRollbackBlocks: 0
 maxTransactionLifetime: 24h
 maxBlockFutureTime: 500ms
 maxNamespaceDuration: 365d
-namespaceGracePeriodDuration: 30d
+namespaceGracePeriodDuration: 2m
 maxAccountRestrictionValues: 512
 maxMosaicRestrictionValues: 20
 maxMessageSize: 1024
@@ -44,9 +44,9 @@ enableStrictCosignatureCheck: false
 enableBondedAggregateSupport: true
 maxBondedTransactionLifetime: 48h
 maxTransactionsPerBlock: 6000
-stepDuration: 4m
+stepDuration: 2m
 minNamespaceDuration: 1m
-trustedHosts: 127.0.0.1
+trustedHosts: 
 localNetworks: 127.0.0.1
 lockedFundsPerAggregate: 10000000
 maxHashLockDuration: 2d
@@ -64,8 +64,8 @@ maxNameSize: 64
 maxChildNamespaces: 256
 maxNamespaceDepth: 3
 batchVerificationRandomSource:
-symbolServerToolsImage: symbolplatform/symbol-server:tools-gcc-0.10.0.8
-symbolServerImage: symbolplatform/symbol-server:gcc-0.10.0.8
+symbolServerToolsImage: symbolplatform/symbol-server:tools-gcc-1.0.0.0
+symbolServerImage: symbolplatform/symbol-server:gcc-1.0.0.0
 symbolRestImage: symbolplatform/symbol-rest:2.3.5
 symbolExplorerImage: symbolplatform/symbol-explorer:0.6.3-alpha
 symbolWalletImage: symbolplatform/symbol-desktop-wallet:0.13.6
@@ -81,7 +81,7 @@ transactionsDirectory: './transactions'
 binDirectory: ./seed
 seedDirectory: ./seed
 certificateDirectory: ./cert
-dataDirectory: ./data
+dataDirectory: ./seed
 votingKeysDirectory: ./votingkeys
 enableDelegatedHarvestersAutoDetection: true
 catapultAppFolder: /usr/catapult
@@ -126,7 +126,6 @@ timeSynchronizationMinImportance: 3750
 maxIncomingConnectionsPerIdentity: 6
 enableAddressReuse: false
 nodeListenInterface: 0.0.0.0
-serverVersion: 0.10.0.8
 enableTransactionSpamThrottling: true
 transactionSpamThrottlingMaxBoostFee: 10000000
 maxHashesPerSyncAttempt: 370
@@ -137,12 +136,12 @@ shortLivedCacheBlockDuration: 100m
 shortLivedCachePruneInterval: 90s
 shortLivedCacheMaxSize: 10000000
 transactionSelectionStrategy: maximize-fee
-unconfirmedTransactionsCacheMaxResponseSize: 5MB
+unconfirmedTransactionsCacheMaxResponseSize: 20MB
 unconfirmedTransactionsCacheMaxSize: 20MB
 connectTimeout: 15s
 syncTimeout: 20m
-socketWorkingBufferSize: 16KB
-socketWorkingBufferSensitivity: 1
+socketWorkingBufferSize: 512KB
+socketWorkingBufferSensitivity: 100
 maxPacketDataSize: 150MB
 blockDisruptorSlotCount: 4096
 blockDisruptorMaxMemorySize: 300MB
@@ -161,8 +160,9 @@ dockerComposeVersion: '2.4'
 dockerComposeServiceRestart: 'on-failure:2'
 dockerComposeDebugMode: false
 
-minPartnerNodeVersion: 0.10.0.7
-maxPartnerNodeVersion: 0.10.0.8
+minPartnerNodeVersion: 0.10.0.8
+maxPartnerNodeVersion: 1.0.255.255
+serverVersion: 1.0.0.0
 
 outgoing_connections_maxConnections: 10
 outgoing_connections_maxConnectionAge: 200

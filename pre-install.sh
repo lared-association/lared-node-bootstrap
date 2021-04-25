@@ -66,7 +66,7 @@ function git_pull(){
 	git clone https://matasvosylius:pkPq83teZ3pZ9S838Hh5@bitbucket.org/superhow/docker-node-lared.git > /dev/null 2>&1 
 }
 
-function symbol_cli_install(){
+function cli_install(){
 
 	if [ -d "$DIR/docker-node-lared" ] 
 	then
@@ -150,10 +150,10 @@ else
 	echo "SKIP: git repository already pulled..."
 fi
 
-# symbol-cli installation
+# cli installation
 if [ -d $DIR/docker-node-lared ]; then
 	echo "===> PROCESS: Installing Blockchain CLI"
-	symbol_cli_install	
+	cli_install	
 else
 	echo "SKIP: lared-cli already installed..."
 fi
