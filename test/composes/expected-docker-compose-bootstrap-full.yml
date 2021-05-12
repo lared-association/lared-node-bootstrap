@@ -20,10 +20,9 @@ services:
             - ALL
         privileged: true
     peer-node-0:
-        user: '1000:1000'
         container_name: peer-node-0
-        image: 'symbolplatform/symbol-server:gcc-0.10.0.6'
-        command: bash -c "/bin/bash /symbol-commands/runServerRecover.sh peer-node-0 && /bin/bash /symbol-commands/startServer.sh peer-node-0"
+        image: 'symbolplatform/symbol-server:gcc-1.0.0.0'
+        command: /bin/bash /symbol-commands/start.sh /usr/catapult ./data server broker peer-node-0 DEBUG false
         stop_signal: SIGINT
         working_dir: /symbol-workdir
         restart: 'on-failure:2'
@@ -43,10 +42,9 @@ services:
                     - peer-node-0
         hostname: peer-node-0
     peer-node-1:
-        user: '1000:1000'
         container_name: peer-node-1
-        image: 'symbolplatform/symbol-server:gcc-0.10.0.6'
-        command: bash -c "/bin/bash /symbol-commands/runServerRecover.sh peer-node-1 && /bin/bash /symbol-commands/startServer.sh peer-node-1"
+        image: 'symbolplatform/symbol-server:gcc-1.0.0.0'
+        command: /bin/bash /symbol-commands/start.sh /usr/catapult ./data server broker peer-node-1 DEBUG false
         stop_signal: SIGINT
         working_dir: /symbol-workdir
         restart: 'on-failure:2'
@@ -66,10 +64,9 @@ services:
                     - peer-node-1
         hostname: peer-node-1
     api-node-0:
-        user: '1000:1000'
         container_name: api-node-0
-        image: 'symbolplatform/symbol-server:gcc-0.10.0.6'
-        command: bash -c "/bin/bash /symbol-commands/wait.sh ./data/broker.started && /bin/bash /symbol-commands/startServer.sh api-node-0"
+        image: 'symbolplatform/symbol-server:gcc-1.0.0.0'
+        command: /bin/bash /symbol-commands/start.sh /usr/catapult ./data server broker api-node-0 DEBUG true
         stop_signal: SIGINT
         working_dir: /symbol-workdir
         restart: 'on-failure:2'
@@ -90,13 +87,10 @@ services:
                     - api-node-0
         hostname: api-node-0
     api-node-broker-0:
-        user: '1000:1000'
         container_name: api-node-broker-0
-        image: 'symbolplatform/symbol-server:gcc-0.10.0.6'
+        image: 'symbolplatform/symbol-server:gcc-1.0.0.0'
         working_dir: /symbol-workdir
-        command: >-
-            bash -c "/bin/bash /symbol-commands/runServerRecover.sh api-node-broker-0 && /bin/bash /symbol-commands/startBroker.sh
-            api-node-broker-0"
+        command: /bin/bash /symbol-commands/start.sh /usr/catapult ./data broker server api-node-broker-0 DEBUG
         ports:
             - '8002:7902'
         stop_signal: SIGINT
@@ -114,7 +108,7 @@ services:
     rest-gateway-0:
         container_name: rest-gateway-0
         user: '1000:1000'
-        image: 'symbolplatform/symbol-rest:2.3.2'
+        image: 'symbolplatform/symbol-rest:2.3.5'
         command: npm start --prefix /app/catapult-rest/rest /symbol-workdir/rest.json
         stop_signal: SIGINT
         working_dir: /symbol-workdir
@@ -167,7 +161,7 @@ services:
         privileged: true
     faucet-0:
         container_name: faucet-0
-        image: 'symbolplatform/symbol-faucet:0.4.0'
+        image: 'symbolplatform/symbol-faucet:0.5.0-alpha'
         stop_signal: SIGINT
         environment:
             DEFAULT_NODE: 'http://rest-gateway-0:3000'

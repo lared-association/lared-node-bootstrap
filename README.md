@@ -1,7 +1,7 @@
 ![](https://i.imgur.com/r8mM1TN.gif)
 # lared-node-bootstrap
 
-Symbol CLI tool that allows you to create, configure and run Symbol&#39;s complete networks or nodes to be synced with existing networks.
+LaRed tool that allows you to create, configure and run LaRed&#39;s complete networks or nodes to be synced with existing networks.
 
 <!--  -->
 

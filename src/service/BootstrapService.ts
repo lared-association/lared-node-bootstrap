@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { Addresses, ConfigPreset } from '../model';
-import { DockerCompose } from '../model/DockerCompose';
+import { Addresses, ConfigPreset, DockerCompose } from '../model';
+import { BootstrapUtils } from './BootstrapUtils';
 import { ComposeParams, ComposeService } from './ComposeService';
 import { ConfigParams, ConfigResult, ConfigService } from './ConfigService';
 import { LinkParams, LinkService } from './LinkService';
 import { ReportParams, ReportService } from './ReportService';
+import { RewardProgramParams, RewardProgramService } from './RewardProgramService';
 import { RunParams, RunService } from './RunService';
-import { SupernodeParams, SupernodeService } from './SupernodeService';
 
 export type StartParams = ConfigParams & ComposeParams & RunParams;
 
@@ -29,7 +29,7 @@ export type StartParams = ConfigParams & ComposeParams & RunParams;
  * Main entry point for API integration.
  */
 export class BootstrapService {
-    public constructor(private readonly root: string = './node_modules/lared-node-bootstrap') {}
+    public constructor(private readonly root: string = BootstrapUtils.DEFAULT_ROOT_FOLDER) {}
 
     /**
      * It generates the configuration and nemesis for the provided preset
@@ -82,12 +82,12 @@ export class BootstrapService {
      * @param passedPresetData  the created preset if you know it, otherwise will load the latest one resolved from the target folder.
      * @param passedAddresses  the created addresses if you know it, otherwise will load the latest one resolved from the target folder.
      */
-    public async enrolSupernode(
-        config: SupernodeParams = SupernodeService.defaultParams,
+    public async enrolRewardProgram(
+        config: RewardProgramParams = RewardProgramService.defaultParams,
         passedPresetData?: ConfigPreset | undefined,
         passedAddresses?: Addresses | undefined,
     ): Promise<void> {
-        await new SupernodeService(config).enrol(passedPresetData, passedAddresses);
+        await new RewardProgramService(config).enrol(passedPresetData, passedAddresses);
     }
 
     /**

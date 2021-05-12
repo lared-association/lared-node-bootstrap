@@ -3,6 +3,5 @@ nodes:
     - harvesting: true
       voting: true
       api: false
-      name: 'lared-peer-node'
+      name: 'peer-node'
       openPort: true
-      host: ''

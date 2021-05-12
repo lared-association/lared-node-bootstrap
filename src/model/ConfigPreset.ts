@@ -15,8 +15,15 @@
  */
 
 import { NetworkType } from 'symbol-sdk';
-import { Preset } from '../service';
+import { Preset, RewardProgram } from '../service';
 import { NodeType } from './NodeType';
+
+export enum PrivateKeySecurityMode {
+    ENCRYPT = 'ENCRYPT',
+    PROMPT_MAIN = 'PROMPT_MAIN',
+    PROMPT_MAIN_TRANSPORT = 'PROMPT_MAIN_TRANSPORT',
+    PROMPT_ALL = 'PROMPT_ALL',
+}
 
 export interface DockerServicePreset {
     ipv4_address?: string;
@@ -58,27 +65,210 @@ export interface NemesisPreset {
     transactionsDirectory: string;
 }
 
-export interface NodePreset extends DockerServicePreset {
-    // At least these properties.
-    // If true, harvesterSigningPrivateKey != mainPrivateKey and harvesterSigningPrivateKey will be linked to mainPrivateKey
-    serverVersion?: string;
-    nodeUseRemoteAccount?: boolean;
-    repeat?: number;
+export enum TransactionSelectionStrategy {
+    maximizeFee = 'maximize-fee',
+    oldest = 'oldest',
+    minimizeFee = 'minimize-fee',
+}
+export enum DebugLevel {
+    trace = 'Trace',
+    debug = 'Debug',
+    info = 'Info',
+    important = 'Important',
+    warning = 'Warning',
+    error = 'Error',
+    fatal = 'Fatal',
+    min = 'Min',
+    max = 'Max',
+}
+
+export interface NodeConfigPreset {
+    syncsource: boolean;
+    filespooling: boolean;
+    partialtransaction: boolean;
+    sinkType: 'Async' | 'Sync';
+    enableSingleThreadPool: boolean;
+    addressextraction: boolean;
+    mongo: boolean;
+    zeromq: boolean;
+    enableAutoSyncCleanup: boolean;
+    serverVersion: string;
+    nodeUseRemoteAccount: boolean;
+    beneficiaryAddress?: string;
+    stepDuration: string;
+    logLevel: DebugLevel;
+    shortLivedCacheMessageDuration: string;
+    readRateMonitoringBucketDuration: string;
+    networkHeightMaxNodes: number;
+    mongoImage: string;
+    harvestBeneficiaryPercentage: number;
+    totalChainImportance: number;
+    maxSubcompactionThreads: number;
+    partialTransactionsCacheMaxSize: string;
+    votingSetGrouping: number;
+    trustedHosts: string;
+    shortLivedCacheTransactionDuration: string;
+    transactionDisruptorSlotCount: number;
+    outgoing_connections_maxConnectionAge: number;
+    maxMosaicAtomicUnits: number;
+    binDirectory: string;
+    timeSynchronizationMinImportance: number;
+    nodePort: number;
+    maxBackgroundThreads: number;
+    maxMultisigDepth: number;
+    maxChildNamespaces: number;
+    maxTrackedNodes: string;
+    transactionSelectionStrategy: TransactionSelectionStrategy;
+    blockDisruptorSlotCount: number;
+    minTransactionFailuresPercentForBan: number;
+    enableCacheDatabaseStorage: boolean;
+    maxTransactionLifetime: string;
+    maxVotingKeyLifetime: number;
+    maxMosaicDivisibility: number;
+    blockCacheSize: string;
+    maxNameSize: number;
+    enableStatistics: boolean;
+    batchVerificationRandomSource: null;
+    maxMosaicsPerAccount: number;
+    maxBannedNodes: number;
+    maxBlockFutureTime: string;
+    maxBondedTransactionLifetime: string;
+    subscriberPort: number;
+    maxUnlockedAccounts: number;
+    maxHashesPerPoint: number;
+    delegatePrioritizationPolicy: string;
+    minFeeMultiplier: number;
+    minVoterBalance: number;
+    maxCosignedAccountsPerAccount: number;
+    socketWorkingBufferSize: string;
+    rootNamespaceRentalFeePerBlock: number;
+    transactionSpamThrottlingMaxBoostFee: number;
+    enableTransactionSpamThrottling: boolean;
+    defaultBanDuration: string;
+    mosaicRentalFee: number;
+    enableAutoHarvesting: boolean;
+    outgoing_connections_numConsecutiveFailuresBeforeBanning: number;
+    importanceActivityPercentage: number;
+    maxWriteBatchSize: string;
+    shortLivedCachePruneInterval: string;
+    messagingListenInterface: string;
+    lockedFundsPerAggregate: number;
+    enableVerifiableState: boolean;
+    maxDifficultyBlocks: number;
+    maxNamespaceDuration: string;
+    shortLivedCacheBlockDuration: string;
+    maxValueSize: number;
+    minHarvesterBalance: number;
+    incoming_connections_numConsecutiveFailuresBeforeBanning: number;
+    childNamespaceRentalFee: number;
+    maxHarvesterBalance: number;
+    syncTimeout: string;
+    maxIncomingConnectionsPerIdentity: number;
+    maxHashesPerSyncAttempt: number;
+    maxSecretLockDuration: string;
+    maxReadRateMonitoringTotalSize: string;
+    connectTimeout: string;
+    minProofSize: number;
+    finalizationSize: number;
+    maxAccountRestrictionValues: number;
+    enableStrictCosignatureCheck: boolean;
+    maxDropBatchSize: number;
+    namespaceGracePeriodDuration: string;
+    blockTimeSmoothingFactor: number;
+    incoming_connections_maxConnectionBanAge: number;
+    maxCosignaturesPerAggregate: number;
+    enableDispatcherInputAuditing: boolean;
+    incoming_connections_maxConnectionAge: number;
+    maxNamespaceDepth: number;
+    shortLivedCacheMaxSize: number;
+    enableBondedAggregateSupport: boolean;
+    numReadRateMonitoringBuckets: number;
+    enableVerifiableReceipts: boolean;
+    reservedRootNamespaceNames: string;
+    defaultDynamicFeeMultiplier: number;
+    enableDispatcherAbortWhenFull: boolean;
+    maxOpenFiles: number;
+    unconfirmedTransactionsCacheMaxResponseSize: string;
+    blockElementTraceInterval: number;
+    maxChainBytesPerSyncAttempt: string;
+    writeTimeout: string;
+    unconfirmedTransactionsCacheMaxSize: string;
+    nodeEqualityStrategy: string;
+    harvestNetworkPercentage: number;
+    importanceGrouping: number;
+    maxRollbackBlocks: number;
+    nodeListenInterface: string;
+    minTransactionFailuresCountForBan: number;
+    initialCurrencyAtomicUnits: number;
+    prevoteBlocksMultiple: number;
+    socketWorkingBufferSensitivity: number;
+    blockDisruptorMaxMemorySize: string;
+    incoming_connections_backlogSize: number;
+    keepAliveDuration: string;
+    maxPacketDataSize: string;
+    outgoing_connections_maxConnectionBanAge: number;
+    maxMosaicDuration: string;
+    enableAddressReuse: boolean;
+    timeSynchronizationMaxNodes: number;
+    outgoing_connections_maxConnections: number;
+    fileDatabaseBatchSize: number;
+    maxCosignatoriesPerAccount: number;
+    blockGenerationTargetTime: string;
+    transactionElementTraceInterval: number;
+    minPartnerNodeVersion: string;
+    maxHashLockDuration: string;
+    transactionDisruptorMaxMemorySize: string;
+    memtableMemoryBudget: string;
+    networkheight: boolean;
+    finalizationThreshold: number;
+    minNamespaceDuration: string;
+    maxVotingKeysPerAccount: number;
+    messageSynchronizationMaxResponseSize: string;
+    maxTimeBehindPullTransactionsStart: string;
+    maxBlocksPerSyncAttempt: number;
+    databaseName: string;
+    enableDelegatedHarvestersAutoDetection: boolean;
+    incoming_connections_maxConnections: number;
+    certificateDirectory: string;
+    maxMosaicRestrictionValues: number;
+    minVotingKeyLifetime: number;
+    enableRevoteOnBoot: boolean;
+    partialTransactionsCacheMaxResponseSize: string;
+    seedDirectory: string;
+    maxBanDuration: string;
+    maxPartnerNodeVersion: string;
+    maxWriterThreads: number;
+    maxMessageSize: number;
+    maxTransactionsPerAggregate: number;
+    maxProofSize: number;
+    maxTransactionsPerBlock: number;
+    localNetworks: string;
+}
+
+export interface NodePreset extends DockerServicePreset, Partial<NodeConfigPreset> {
+    name: string;
     harvesting: boolean;
     api: boolean;
     voting: boolean;
-    databaseHost: string;
+
+    repeat?: number;
+    databaseHost?: string;
     host?: string;
-    name: string;
-    roles: string;
+    roles?: string;
     friendlyName?: string;
 
     // Optional private keys. If not provided, bootstrap will generate random ones.
     mainPrivateKey?: string;
+    mainPublicKey?: string;
+
     transportPrivateKey?: string;
+    transportPublicKey?: string;
+
     remotePrivateKey?: string;
+    remotePublicKey?: string;
+
     vrfPrivateKey?: string;
-    votingPrivateKey?: string;
+    vrfPublicKey?: string;
 
     //Broker specific
     brokerName?: string;
@@ -88,14 +278,37 @@ export interface NodePreset extends DockerServicePreset {
     brokerExcludeDockerService?: boolean;
     brokerCompose?: any;
     brokerDockerComposeDebugMode?: boolean;
-    //super node
-    supernode?: boolean | string;
-    supernodeOpenPort?: boolean | number | string;
+
+    //Reward program
+    rewardProgram?: RewardProgram;
+    rewardProgramAgentIpv4_address?: string;
+    rewardProgramAgentOpenPort?: boolean | number | string;
+    rewardProgramAgentExcludeDockerService?: boolean;
+    rewardProgramAgentCompose?: any;
+    rewardProgramAgentHost?: string;
+    rewardProgramAgentDockerComposeDebugMode?: boolean;
     agentUrl?: string; //calculated if not provided.
     restGatewayUrl?: string; // calculated if not provided;
 }
 
-export interface GatewayPreset extends DockerServicePreset {
+export interface GatewayConfigPreset {
+    throttlingBurst: number;
+    connectionPoolSize: number;
+    apiNodeBrokerPort: number;
+    apiNodeConfigPath: string;
+    apiNodeBrokerPortMonitorInterval: number;
+    maxConnectionAttempts: number;
+    apiNodeBrokerConnectTimeout: number;
+    restLoggingFilename: string;
+    apiNodeBrokerMonitorLoggingThrottle: number;
+    apiNodePort: number;
+    throttlingRate: number;
+    maxSubscriptions: number;
+    apiNodeTimeout: number;
+    baseRetryDelay: number;
+}
+
+export interface GatewayPreset extends DockerServicePreset, Partial<GatewayConfigPreset> {
     // At least these properties.
     repeat?: number;
     apiNodeName: string;
@@ -131,54 +344,93 @@ export interface FaucetPreset extends DockerServicePreset {
     name: string;
 }
 
-export interface ConfigPreset {
+export interface PeerInfo {
+    publicKey: string;
+    endpoint: {
+        host: string;
+        port: number;
+    };
+    metadata: {
+        name: string;
+        roles: string;
+    };
+}
+export type DeepPartial<T> = {
+    [P in keyof T]?: DeepPartial<T[P]>;
+};
+
+export interface CommonConfigPreset extends NodeConfigPreset, GatewayConfigPreset {
+    version: number; // file version
+    bootstrapVersion: number;
     preset: Preset;
+    assembly: string;
+    assemblies?: string;
+    privateKeySecurityMode: string;
     votingKeysDirectory: string;
-    agentBinaryLocation: string;
-    serverVersion: string;
+    sinkAddress?: string;
     epochAdjustment: string;
     catapultAppFolder: string;
+    dataDirectory: string;
     subnet?: string;
     transactionsDirectory: string;
     faucetUrl?: string;
-    nemesis?: NemesisPreset;
     nemesisSeedFolder?: string; // Optional seed folder if user provides an external seed/00000 folder.
-    assemblies?: string;
-    databaseName: string;
+
+    symbolServerToolsImage: string;
+    symbolWalletImage: string;
+    symbolServerImage: string;
+    symbolExplorerImage: string;
+    symbolAgentImage: string;
+    symbolRestImage: string;
+    symbolFaucetImage: string;
+
+    dockerComposeVersion: number | string;
+    dockerComposeServiceRestart: string;
+    dockerComposeDebugMode: boolean;
+    votingKeyEndEpoch: number;
+    votingKeyStartEpoch: number;
+    mongoComposeRunParam: string;
+    peersP2PListLimit: number;
+    peersApiListLimit: number;
+
+    nonVotingUnfinalizedBlocksDuration: string;
+    votingUnfinalizedBlocksDuration?: string;
     nemesisSignerPublicKey: string;
     nemesisGenerationHashSeed: string;
     harvestNetworkFeeSinkAddress?: string;
     mosaicRentalFeeSinkAddress?: string;
     namespaceRentalFeeSinkAddress?: string;
-    nodeUseRemoteAccount: boolean;
-    networkheight: boolean;
-    dockerComposeVersion: number | string;
-    dockerComposeServiceRestart: string;
-    dockerComposeDebugMode: boolean;
-    nodes?: NodePreset[];
-    gateways?: GatewayPreset[];
-    explorers?: ExplorerPreset[];
-    wallets?: WalletPreset[];
-    faucets?: FaucetPreset[];
-    networkType: NetworkType;
     networkIdentifier: string;
     networkName: string;
     currencyMosaicId: string;
     harvestingMosaicId: string;
     baseNamespace: string;
-    databases?: DatabasePreset[];
-    knownPeers?: Record<NodeType, any[]>;
+    rewardProgramControllerPublicKey?: string;
+    networkType: NetworkType;
+    //Nested Objects
+
     knownRestGateways?: string[];
-    mongoComposeRunParam: string;
-    mongoImage: string;
-    symbolServerToolsImage: string;
-    symbolExplorerImage: string;
-    symbolWalletImage: string;
-    symbolFaucetImage: string;
-    symbolServerImage: string;
-    symbolRestImage: string;
-    votingKeyStartEpoch: number;
-    votingKeyEndEpoch: number;
-    supernodeControllerPublicKey?: string;
-    votingKeyLinkV2: number | undefined;
+    inflation?: Record<string, number>;
+    knownPeers?: Record<NodeType, PeerInfo[]>;
+}
+
+export interface ConfigPreset extends CommonConfigPreset {
+    // Nested objects!
+    nemesis?: NemesisPreset;
+    databases?: DatabasePreset[];
+    nodes?: NodePreset[];
+    gateways?: GatewayPreset[];
+    explorers?: ExplorerPreset[];
+    wallets?: WalletPreset[];
+    faucets?: FaucetPreset[];
+}
+
+export interface CustomPreset extends Partial<CommonConfigPreset> {
+    nemesis?: DeepPartial<NemesisPreset>;
+    databases?: Partial<DatabasePreset>[];
+    nodes?: Partial<NodePreset>[];
+    gateways?: Partial<GatewayPreset>[];
+    explorers?: Partial<ExplorerPreset>[];
+    wallets?: Partial<WalletPreset>[];
+    faucets?: Partial<FaucetPreset>[];
 }

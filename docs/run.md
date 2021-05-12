@@ -1,5 +1,5 @@
 `lared-node-bootstrap run`
-==========================
+======================
 
 It boots the network via docker using the generated `docker-compose.yml` file and configuration. The config and compose methods/commands need to be called before this method. This is just a wrapper for the `docker-compose up` bash call.
 
@@ -52,3 +52,5 @@ OPTIONS
 EXAMPLE
   $ lared-node-bootstrap run
 ```
+
+_See code: [src/commands/run.ts](https://github.com/lared-association/lared-node-bootstrap/blob/master/src/commands/run.ts)_
