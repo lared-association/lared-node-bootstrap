@@ -1,5 +1,5 @@
 `lared-node-bootstrap start`
-============================
+========================
 
 Single command that aggregates config, compose and run in one line!
 
@@ -30,7 +30,7 @@ OPTIONS
   -h, --help
       It shows the help of this command.
 
-  -p, --preset=(bootstrap|testnet)
+  -p, --preset=(bootstrap|testnet|mainnet)
       [default: bootstrap] the network preset
 
   -r, --reset
@@ -56,6 +56,14 @@ OPTIONS
 
       The health check process handles 'repeat' and custom 'openPort' services.
 
+  --noPassword
+      When provided, Bootstrap will not use a password, so private keys will be stored in plain text. Use with caution.
+
+  --password=password
+      A password used to encrypt and decrypt private keys in preset files like addresses.yml and preset.yml. Bootstrap 
+      prompts for a password by default, can be provided in the command line (--password=XXXX) or disabled in the command 
+      line (--noPassword).
+
   --pullImages
       It pulls the utility images from DockerHub when running the configuration. It only affects alpha/dev docker images.
 
@@ -77,4 +85,8 @@ EXAMPLES
   $ lared-node-bootstrap start
   $ lared-node-bootstrap start -p bootstrap
   $ lared-node-bootstrap start -p testnet -a dual
+  $ lared-node-bootstrap start -p testnet -a dual --password 1234
+  $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap start -p testnet -a dual
 ```
+
+_See code: [src/commands/start.ts](https://github.com/lared-association/lared-node-bootstrap/blob/master/src/commands/start.ts)_

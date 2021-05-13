@@ -1,5 +1,5 @@
 `lared-node-bootstrap report`
-=============================
+=========================
 
 it generates reStructuredText (.rst) reports describing the configuration of each node.
 
@@ -20,3 +20,5 @@ OPTIONS
 EXAMPLE
   $ lared-node-bootstrap report
 ```
+
+_See code: [src/commands/report.ts](https://github.com/lared-association/lared-node-bootstrap/blob/master/src/commands/report.ts)_

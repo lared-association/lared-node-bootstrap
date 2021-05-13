@@ -16,12 +16,12 @@
 
 import { expect } from '@oclif/test';
 import { statSync } from 'fs';
+import * as _ from 'lodash';
 import 'mocha';
 import { it } from 'mocha';
 import { totalmem } from 'os';
 import { Account, Deadline, LinkAction, NetworkType, UInt64, VotingKeyLinkTransaction } from 'symbol-sdk';
-import { BootstrapUtils } from '../../src/service';
-import { CryptoUtils } from '../../src/service/CryptoUtils';
+import { BootstrapUtils, CryptoUtils } from '../../src/service';
 import assert = require('assert');
 
 describe('BootstrapUtils', () => {
@@ -58,6 +58,10 @@ describe('BootstrapUtils', () => {
         expect(statSync('boat.png').size).not.eq(expectedSize);
         expect(await download()).eq(true);
         expect(await download()).eq(false);
+    });
+
+    it('BootstrapUtils.resolveRootFolder', async () => {
+        expect(BootstrapUtils.resolveRootFolder()).to.not.undefined;
     });
 
     it('BootstrapUtils.download when invalid', async () => {
@@ -114,7 +118,7 @@ describe('BootstrapUtils', () => {
             BootstrapUtils.loadYaml('test/encrypted.yml', 'abcd');
             expect(1).eq(0);
         } catch (e) {
-            expect(e.message).eq('Cannot decrypt file test/encrypted.yml. Have you used the right --password param?');
+            expect(e.message).eq('Cannot decrypt file test/encrypted.yml. Have you used the right password?');
         }
 
         try {
@@ -122,7 +126,7 @@ describe('BootstrapUtils', () => {
             expect(1).eq(0);
         } catch (e) {
             expect(e.message).eq(
-                'File test/encrypted.yml seems to be encrypted but no password has been provided. Have you used the --password param?',
+                'File test/encrypted.yml seems to be encrypted but no password has been provided. Have you entered the right password?',
             );
         }
 
@@ -131,11 +135,27 @@ describe('BootstrapUtils', () => {
             expect(1).eq(0);
         } catch (e) {
             expect(e.message).eq(
-                'File test/encrypted.yml seems to be encrypted but no password has been provided. Have you used the --password param?',
+                'File test/encrypted.yml seems to be encrypted but no password has been provided. Have you entered the right password?',
             );
         }
 
         expect(CryptoUtils.encryptedCount(BootstrapUtils.loadYaml('test/encrypted.yml', false))).to.be.eq(6);
+    });
+
+    it('mergeTest', async () => {
+        const a = { a: 1, list: ['1', '1', '3'], c: 'A', beneficiaryAddress: 'abc' };
+        const b = { a: undefined, c: 'B' };
+        const c = { list: ['a', 'b'], a: undefined, c: 'C', beneficiaryAddress: '' };
+        const expected = {
+            a: 1,
+            beneficiaryAddress: '',
+            c: 'C',
+            list: ['a', 'b', '3'],
+        };
+
+        expect(_.merge(a, b, c)).deep.equals(expected);
+
+        expect(_.merge(a, b, c)).deep.equals(expected);
     });
 
     it('createVotingKeyTransaction v1 short key', async () => {
