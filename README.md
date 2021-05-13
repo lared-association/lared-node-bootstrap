@@ -8,7 +8,9 @@ Symbol CLI tool that allows you to create, configure and run Symbol&#39;s comple
 <!-- toc -->
 * [lared-node-bootstrap](#lared-node-bootstrap)
 * [Key benefits](#key-benefits)
+* [Intro](#Intro)
 * [Requirements](#requirements)
+* [Step-by-step preparation](#Step-by-step)
 * [Usage](#usage)
 * [Development](#development)
 * [Command Topics](#command-topics)
@@ -60,11 +62,50 @@ The folder where the generated config, docker files, and data are stored. The fo
 -   `./docker`: The generated docker-compose.yml, mongo init scripts, and server basic bash scripts. 
 -   `./reports`: The location of the generated reports.
 
-# Requirements 🧰
+# Intro
+
+-   Tested well on Ubuntu 18.04 TLS
+-   Don't run under root, run under power user:
+-   It is good practice to change the username ('superuser') provided in the example below
+```
+adduser superuser
+usermod -aG sudo superuser
+su superuser
+cd
+```
+
+# Requirements
 
 -   Node 10+
 -   Docker
--   Docker Compose
+-   Docker Compose 1.29+ (better to use https://docs.docker.com/engine/install/ubuntu/)
+
+# Step-by-step
+
+You may need NVM to manage node version
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+```
+
+To use NVM, you may need to logout and login to your session
+Install Node 12:
+
+```
+nvm install 12
+nvm use 12
+```
+
+Get the latest version of docker and docker compose:
+
+```
+sudo curl -fsSL https://get.docker.com -o get-docker.sh 
+sudo sh get-docker.sh
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo groupadd docker
+sudo usermod -aG docker $USER
+```
 
 Validate your environment by running:
 
@@ -74,40 +115,50 @@ docker -v
 docker-compose -v
 ```
 
-Check if your user can run docker without sudo:
+Check your user can run docker without sudo:
 
 ```
 docker run hello-world
 ```
 
-If you see an error like the following:
+If you see an error like:
 
 ```
 Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
 ```
 
-Please follow this [guide](https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket).
+Try to logout and login, or please follow this [guide](https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket).
 
-# Usage 🖥️
 
-It's recommended to run the commands from an empty working dir.
 
-The network configuration, data, and docker files will be created inside the target folder ('./target') by default.
+# Usage
+
+It's recommended to run the commands from en empty working dir.
+
+The network configuration, data and docker files will be created inside the target folder ('./target') by default.
 
 ```
-mkdir my-networks
-cd my-networks
+mkdir node
+cd node
+```
+
+Create node custom name:
+
+```
+cd ~/node
+touch name.yml
+echo 'friendlyName: 'INSERT_YOUR_NODE_NAME_HERE'' > name.yml
 ```
 
 Once in the working dir:
 
 <!-- usage -->
 ```sh-session
-$ npm install -g @lared-association/lared-node-bootstrap
+$ npm install -g lared-node-bootstrap
 $ lared-node-bootstrap COMMAND
 running command...
 $ lared-node-bootstrap (-v|--version|version)
-@lared-association/lared-node-bootstrap/0.4.2 win32-x64 node-v12.19.0
+lared-node-bootstrap/1.0.4 linux-x64 node-v10.24.0
 $ lared-node-bootstrap --help [COMMAND]
 USAGE
   $ lared-node-bootstrap COMMAND
@@ -118,10 +169,12 @@ USAGE
 The general usage would be:
 
 ```
-lared-node-bootstrap config -p testnet -a dual
+lared-node-bootstrap config -p testnet -a dual --customPreset name.yml
 lared-node-bootstrap compose
-lared-node-bootstrap run
+lared-node-bootstrap run -d
 ```
+
+<b>NOTE: Please open 7900 and 3000 for communication with the network</b>
 
 If you need to start fresh, you may need to sudo remove the target folder (docker volumes dirs may be created using sudo). Example:
 
@@ -130,6 +183,36 @@ sudo rm -rf ./target
 ```
 
 
+# Enabling harvesting
+
+
+lared-node-bootstrap creates peer nodes with remote harvesting enabled by default, but they still need to be registered by announcing the AccountKeyLink and VrfKeyLink transactions to the network.
+
+This can be done by lared-node-bootstrap too, but it needs to be a step separated from lared-node-bootstrap start because funds are required to announce transactions.
+
+You can find the main address to fund in the file located at node/target/addresses.yml
+
+To decrypt your private keys, you can use this command:
+
+```
+lared-node-bootstrap decrypt --source target/addresses.yml --destination plain-addresses.yml
+```
+
+The decrypted file with your provate keys will be located at node/plain-addresses.yml
+
+
+Once the node is running with lared-node-bootstrap start and you have funded its account, from a different terminal (but from the same folder), simply type:
+
+```
+lared-node-bootstrap link
+```
+
+In case the node can't find any node to transmit transactio, you may set an external URL:
+
+
+```
+lared-node-bootstrap link --url=http://20.52.130.150:3000
+```
 
 # Development 🛠️
 
@@ -162,7 +245,3 @@ General users should install this tool like any other node module.
 * [`lared-node-bootstrap stop`](docs/stop.md) - Stops the docker-compose network if running (lared-node-bootstrap started with --detached). This is just a wrapper for the `docker-compose down` bash call.
 
 <!-- commandsstop -->
-
-```
-
-```
