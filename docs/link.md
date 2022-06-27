@@ -1,5 +1,5 @@
 `lared-node-bootstrap link`
-=======================
+====================
 
 It announces VRF and Voting Link transactions to the network for each node with 'Peer' or 'Voting' roles. This command finalizes the node registration to an existing network.
 
@@ -14,31 +14,48 @@ USAGE
   $ lared-node-bootstrap link
 
 OPTIONS
-  -h, --help              It shows the help of this command.
-  -t, --target=target     [default: target] The target folder where the lared-node-bootstrap network is generated
-  -u, --url=url           [default: http://localhost:3000] the network url
+  -c, --customPreset=customPreset                      This command uses the encrypted addresses.yml to resolve the main
+                                                       private key. If the main private is only stored in the custom
+                                                       preset, you can provide it using this param. Otherwise, the
+                                                       command may ask for it when required.
 
-  --maxFee=maxFee         the max fee used when announcing (absolute). The node min multiplier will be used if it is not
-                          provided.
+  -h, --help                                           It shows the help of this command.
 
-  --noPassword            When provided, Bootstrap will not use a password, so private keys will be stored in plain
-                          text. Use with caution.
+  -t, --target=target                                  [default: target] The target folder where the lared-node-bootstrap
+                                                       network is generated
 
-  --password=password     A password used to encrypt and decrypt private keys in preset files like addresses.yml and
-                          preset.yml. Bootstrap prompts for a password by default, can be provided in the command line
-                          (--password=XXXX) or disabled in the command line (--noPassword).
+  -u, --url=url                                        [default: http://localhost:3000] the network url
 
-  --ready                 If --ready is provided, the command will not ask for confirmation when announcing
-                          transactions.
+  --logger=logger                                      [default: Console] The loggers the command will use. Options are:
+                                                       Console,File,Silent. Use ',' to select multiple loggers.
 
-  --unlink                Perform "Unlink" transactions unlinking the voting and VRF keys from the node signer account
+  --maxFee=maxFee                                      the max fee used when announcing (absolute). The node min
+                                                       multiplier will be used if it is not provided.
 
-  --useKnownRestGateways  Use the best NEM node available when announcing. Otherwise the command will use the node
-                          provided by the --url parameter.
+  --noPassword                                         When provided, Bootstrap will not use a password, so private keys
+                                                       will be stored in plain text. Use with caution.
+
+  --password=password                                  A password used to encrypt and decrypt private keys in preset
+                                                       files like addresses.yml and preset.yml. Bootstrap prompts for a
+                                                       password by default, can be provided in the command line
+                                                       (--password=XXXX) or disabled in the command line (--noPassword).
+
+  --ready                                              If --ready is provided, the command will not ask for confirmation
+                                                       when announcing transactions.
+
+  --serviceProviderPublicKey=serviceProviderPublicKey  Public key of the service provider account, used when the
+                                                       transaction announcer(service provider account) is different than
+                                                       the main account private key holder
+
+  --unlink                                             Perform "Unlink" transactions unlinking the voting and VRF keys
+                                                       from the node signer account
+
+  --useKnownRestGateways                               Use the best NEM node available when announcing. Otherwise the
+                                                       command will use the node provided by the --url parameter.
 
 EXAMPLES
   $ lared-node-bootstrap link
   $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap link --unlink --useKnownRestGateways
 ```
 
-_See code: [src/commands/link.ts](https://github.com/lared-association/lared-node-bootstrap/blob/master/src/commands/link.ts)_
+_See code: [src/commands/link.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/link.ts)_

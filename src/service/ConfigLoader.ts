@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NEM
+ * Copyright 2022 Fernando Boucquez
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,439 +16,183 @@
 import { existsSync } from 'fs';
 import * as _ from 'lodash';
 import { join } from 'path';
-import { Account, Address, Convert, Crypto, MosaicId, MosaicNonce, NetworkType, PublicAccount } from 'symbol-sdk';
-import { LogType } from '../logger';
-import Logger from '../logger/Logger';
-import LoggerFactory from '../logger/LoggerFactory';
-import {
-    Addresses,
-    ConfigAccount,
-    ConfigPreset,
-    CustomPreset,
-    DeepPartial,
-    MosaicAccounts,
-    NodeAccount,
-    NodePreset,
-    PrivateKeySecurityMode,
-} from '../model';
-import { BootstrapUtils, KnownError, Migration, Password } from './BootstrapUtils';
-import { CommandUtils } from './CommandUtils';
-import { KeyName, Preset } from './ConfigService';
-import { CryptoUtils } from './CryptoUtils';
+import { Account, PublicAccount } from 'symbol-sdk';
+import { Logger } from '../logger';
+import { Addresses, ConfigAccount, ConfigPreset, CustomPreset, NodePreset } from '../model';
+import { Assembly, defaultAssembly } from './ConfigService';
+import { Constants } from './Constants';
+import { HandlebarsUtils } from './HandlebarsUtils';
+import { KnownError } from './KnownError';
+import { MigrationService } from './MigrationService';
+import { Utils } from './Utils';
+import { Password, YamlUtils } from './YamlUtils';
 
-const logger: Logger = LoggerFactory.getLogger(LogType.System);
-
+/**
+ * Helper object that knows how to load addresses and preset files.
+ */
 export class ConfigLoader {
-    private static presetInfoLogged = false;
+    public static presetInfoLogged = false;
 
-    public async generateRandomConfiguration(oldAddresses: Addresses | undefined, presetData: ConfigPreset): Promise<Addresses> {
-        const networkType = presetData.networkType;
-        const addresses: Addresses = {
-            version: this.getAddressesMigration(presetData.networkType).length + 1,
-            networkType: networkType,
-            nemesisGenerationHashSeed:
-                presetData.nemesisGenerationHashSeed ||
-                oldAddresses?.nemesisGenerationHashSeed ||
-                Convert.uint8ToHex(Crypto.randomBytes(32)),
-            sinkAddress: presetData.sinkAddress || oldAddresses?.sinkAddress || Account.generateNewAccount(networkType).address.plain(),
-        };
+    constructor(private readonly logger: Logger) {}
 
-        if (presetData.nodes) {
-            addresses.nodes = await this.generateNodeAccounts(oldAddresses, presetData, networkType);
+    public loadCustomPreset(customPreset: string | undefined, password: Password): CustomPreset {
+        if (!customPreset) {
+            return {};
         }
-
-        if (!presetData.harvestNetworkFeeSinkAddress) {
-            presetData.harvestNetworkFeeSinkAddress = addresses.sinkAddress;
-        }
-        if (!presetData.mosaicRentalFeeSinkAddress) {
-            presetData.mosaicRentalFeeSinkAddress = addresses.sinkAddress;
-        }
-        if (!presetData.namespaceRentalFeeSinkAddress) {
-            presetData.namespaceRentalFeeSinkAddress = addresses.sinkAddress;
-        }
-
-        presetData.networkIdentifier = BootstrapUtils.getNetworkIdentifier(presetData.networkType);
-        presetData.networkName = BootstrapUtils.getNetworkName(presetData.networkType);
-        if (!presetData.nemesisGenerationHashSeed) {
-            presetData.nemesisGenerationHashSeed = addresses.nemesisGenerationHashSeed;
-        }
-        const privateKeySecurityMode = CryptoUtils.getPrivateKeySecurityMode(presetData.privateKeySecurityMode);
-        if (presetData.nemesis) {
-            addresses.nemesisSigner = this.generateAccount(
-                networkType,
-                privateKeySecurityMode,
-                KeyName.NemesisSigner,
-                oldAddresses?.nemesisSigner,
-                presetData.nemesis.nemesisSignerPrivateKey,
-                presetData.nemesisSignerPublicKey,
-            );
-            presetData.nemesisSignerPublicKey = addresses.nemesisSigner.publicKey;
-            presetData.nemesis.nemesisSignerPrivateKey = await CommandUtils.resolvePrivateKey(
-                presetData.networkType,
-                addresses.nemesisSigner,
-                KeyName.NemesisSigner,
-                '',
-                'creating the network nemesis seed and configuration',
-            );
-        }
-
-        const nemesisSignerAddress = Address.createFromPublicKey(presetData.nemesisSignerPublicKey, networkType);
-
-        if (!presetData.currencyMosaicId)
-            presetData.currencyMosaicId = BootstrapUtils.toHex(
-                MosaicId.createFromNonce(MosaicNonce.createFromNumber(0), nemesisSignerAddress).toHex(),
-            );
-        if (!presetData.harvestingMosaicId) {
-            if (!presetData.nemesis) {
-                throw new Error('nemesis must be defined!');
-            }
-            if (presetData.nemesis.mosaics && presetData.nemesis.mosaics.length > 1) {
-                presetData.harvestingMosaicId = BootstrapUtils.toHex(
-                    MosaicId.createFromNonce(MosaicNonce.createFromNumber(1), nemesisSignerAddress).toHex(),
-                );
-            } else {
-                presetData.harvestingMosaicId = presetData.currencyMosaicId;
-            }
-        }
-
-        if (presetData.nemesis) {
-            if (oldAddresses) {
-                // Nemesis configuration cannot be changed on upgrade.
-                addresses.mosaics = oldAddresses.mosaics;
-            } else {
-                if (presetData.nemesis.mosaics) {
-                    const mosaics: MosaicAccounts[] = [];
-                    presetData.nemesis.mosaics.forEach((m, index) => {
-                        const accounts = this.generateAddresses(networkType, privateKeySecurityMode, m.accounts);
-                        mosaics.push({
-                            id: index ? presetData.currencyMosaicId : presetData.harvestingMosaicId,
-                            name: m.name,
-                            type: index ? 'harvest' : 'currency',
-                            accounts,
-                        });
-                    });
-
-                    presetData.nemesis.mosaics.forEach((m, index) => {
-                        const accounts = mosaics[index].accounts;
-                        if (!m.currencyDistributions) {
-                            const nodeMainAccounts = (addresses.nodes || []).filter((node) => node.main);
-                            const totalAccounts = (m.accounts || 0) + nodeMainAccounts.length;
-                            const amountPerAccount = Math.floor(m.supply / totalAccounts);
-                            m.currencyDistributions = [
-                                ...accounts.map((a) => ({ address: a.address, amount: amountPerAccount })),
-                                ...nodeMainAccounts.map((n) => ({ address: n.main!.address, amount: amountPerAccount })),
-                            ];
-                            if (m.currencyDistributions.length)
-                                m.currencyDistributions[0].amount += m.supply - totalAccounts * amountPerAccount;
-                        }
-                        const supplied = m.currencyDistributions.map((d) => d.amount).reduce((a, b) => a + b, 0);
-                        if (m.supply != supplied) {
-                            throw new Error(`Invalid nemgen total supplied value, expected ${m.supply} but total is ${supplied}`);
-                        }
-                    });
-                    addresses.mosaics = mosaics;
-                }
-            }
-        }
-
-        return addresses;
-    }
-
-    public generateAddresses(networkType: NetworkType, privateKeySecurityMode: PrivateKeySecurityMode, size: number): ConfigAccount[] {
-        return ConfigLoader.getArray(size).map(() =>
-            this.generateAccount(networkType, privateKeySecurityMode, KeyName.NemesisAccount, undefined, undefined, undefined),
-        );
-    }
-
-    public getAccount(
-        networkType: NetworkType,
-        publicKey: string | undefined,
-        privateKey: string | undefined,
-    ): PublicAccount | Account | undefined {
-        if (privateKey) {
-            return Account.createFromPrivateKey(privateKey, networkType);
-        }
-        if (publicKey) {
-            return PublicAccount.createFromPublicKey(publicKey, networkType);
-        }
-        return undefined;
-    }
-
-    public toConfig(account: PublicAccount | Account): ConfigAccount {
-        if (account instanceof Account) {
-            return {
-                privateKey: account.privateKey,
-                publicKey: account.publicKey,
-                address: account.address.plain(),
-            };
-        }
-        return {
-            publicKey: account.publicKey,
-            address: account.address.plain(),
-        };
-    }
-
-    public generateAccount(
-        networkType: NetworkType,
-        privateKeySecurityMode: PrivateKeySecurityMode,
-        keyName: KeyName,
-        oldStoredAccount: ConfigAccount | undefined,
-        privateKey: string | undefined,
-        publicKey: string | undefined,
-    ): ConfigAccount {
-        const oldAccount = this.getAccount(networkType, oldStoredAccount?.publicKey, oldStoredAccount?.privateKey);
-        const newAccount = this.getAccount(networkType, publicKey, privateKey);
-        if (oldAccount && !newAccount) {
-            logger.info(`Reusing ${keyName} account ${oldAccount.address.plain()}`);
-            return this.toConfig(oldAccount);
-        }
-        if (!oldAccount && newAccount) {
-            logger.info(`${keyName} Account ${newAccount.address.plain()} has been provided`);
-            return this.toConfig(newAccount);
-        }
-        if (oldAccount && newAccount) {
-            if (oldAccount.address.equals(newAccount.address)) {
-                logger.info(`Reusing ${keyName} account ${oldAccount.address.plain()}`);
-                return { ...this.toConfig(oldAccount), ...this.toConfig(newAccount) };
-            }
-            logger.info(
-                `Old ${keyName} Account ${oldAccount.address.plain()} has been changed. New ${keyName} Account is ${newAccount.address.plain()}`,
-            );
-            return this.toConfig(newAccount);
-        }
-
-        //Generation validation.
-        if (
-            keyName === KeyName.Main &&
-            (privateKeySecurityMode === PrivateKeySecurityMode.PROMPT_ALL ||
-                privateKeySecurityMode === PrivateKeySecurityMode.PROMPT_MAIN_TRANSPORT ||
-                privateKeySecurityMode === PrivateKeySecurityMode.PROMPT_MAIN)
-        ) {
+        if (!existsSync(customPreset)) {
             throw new KnownError(
-                `Account ${keyName} cannot be generated when Private Key Security Mode is ${privateKeySecurityMode}. Account won't be stored anywhere!. Please use ${PrivateKeySecurityMode.ENCRYPT}, or provider your ${keyName} account with custom presets!`,
+                `Custom preset '${customPreset}' doesn't exist. Have you provided the right --customPreset <customPrestFileLocation> ?`,
             );
         }
-        if (
-            keyName === KeyName.Transport &&
-            (privateKeySecurityMode === PrivateKeySecurityMode.PROMPT_ALL ||
-                privateKeySecurityMode === PrivateKeySecurityMode.PROMPT_MAIN_TRANSPORT)
-        ) {
-            throw new KnownError(
-                `Account ${keyName} cannot be generated when Private Key Security Mode is ${privateKeySecurityMode}. Account won't be stored anywhere!. Please use ${PrivateKeySecurityMode.ENCRYPT}, ${PrivateKeySecurityMode.PROMPT_MAIN}, or provider your ${keyName} account with custom presets!`,
-            );
-        } else {
-            if (privateKeySecurityMode === PrivateKeySecurityMode.PROMPT_ALL) {
-                throw new KnownError(
-                    `Account ${keyName} cannot be generated when Private Key Security Mode is ${privateKeySecurityMode}. Account won't be stored anywhere! Please use ${PrivateKeySecurityMode.ENCRYPT}, ${PrivateKeySecurityMode.PROMPT_MAIN}, ${PrivateKeySecurityMode.PROMPT_MAIN_TRANSPORT}, or provider your ${keyName} account with custom presets!`,
-                );
+        return YamlUtils.loadYaml(customPreset, password);
+    }
+
+    public static loadAssembly(preset: string, assembly: string, workingDir: string): CustomPreset {
+        const fileLocation = join(Constants.ROOT_FOLDER, 'presets', 'assemblies', `assembly-${assembly}.yml`);
+        const errorMessage = `Assembly '${assembly}' is not valid for preset '${preset}'. Have you provided the right --preset <preset> --assembly <assembly> ?`;
+        return this.loadBundledPreset(assembly, fileLocation, workingDir, errorMessage);
+    }
+
+    public static loadNetworkPreset(preset: string, workingDir: string): CustomPreset {
+        const fileLocation = join(Constants.ROOT_FOLDER, 'presets', preset, `network.yml`);
+        const errorMessage = `Preset '${preset}' does not exist. Have you provided the right --preset <preset> ?`;
+        return this.loadBundledPreset(preset, fileLocation, workingDir, errorMessage);
+    }
+
+    private static loadBundledPreset(presetFile: string, bundledLocation: string, workingDir: string, errorMessage: string): CustomPreset {
+        if (YamlUtils.isYmlFile(presetFile)) {
+            const assemblyFile = Utils.resolveWorkingDirPath(workingDir, presetFile);
+            if (!existsSync(assemblyFile)) {
+                throw new KnownError(errorMessage);
             }
+            return YamlUtils.loadYaml(assemblyFile, false);
         }
-        logger.info(`Generating ${keyName} account...`);
-        return ConfigLoader.toConfig(Account.generateNewAccount(networkType));
+        if (existsSync(bundledLocation)) {
+            return YamlUtils.loadYaml(bundledLocation, false);
+        }
+        throw new KnownError(errorMessage);
     }
 
-    public generateNodeAccount(
-        oldNodeAccount: NodeAccount | undefined,
-        presetData: ConfigPreset,
-        index: number,
-        nodePreset: NodePreset,
-        networkType: NetworkType,
-    ): NodeAccount {
-        const privateKeySecurityMode = CryptoUtils.getPrivateKeySecurityMode(presetData.privateKeySecurityMode);
-        const name = nodePreset.name || `node-${index}`;
-        const main = this.generateAccount(
-            networkType,
-            privateKeySecurityMode,
-            KeyName.Main,
-            oldNodeAccount?.main,
-            nodePreset.mainPrivateKey,
-            nodePreset.mainPublicKey,
-        );
-        const transport = this.generateAccount(
-            networkType,
-            privateKeySecurityMode,
-            KeyName.Transport,
-            oldNodeAccount?.transport,
-            nodePreset.transportPrivateKey,
-            nodePreset.transportPublicKey,
-        );
-
-        const friendlyName = nodePreset.friendlyName || main.publicKey.substr(0, 7);
-
-        const nodeAccount: NodeAccount = {
-            name,
-            friendlyName,
-            roles: nodePreset.roles || '',
-            main: main,
-            transport: transport,
-        };
-
-        const useRemoteAccount = nodePreset.nodeUseRemoteAccount || presetData.nodeUseRemoteAccount;
-
-        if (useRemoteAccount && (nodePreset.harvesting || nodePreset.voting))
-            nodeAccount.remote = this.generateAccount(
-                networkType,
-                privateKeySecurityMode,
-                KeyName.Remote,
-                oldNodeAccount?.remote,
-                nodePreset.remotePrivateKey,
-                nodePreset.remotePublicKey,
-            );
-        if (nodePreset.voting)
-            nodeAccount.voting = this.toConfig(
-                oldNodeAccount?.voting
-                    ? PublicAccount.createFromPublicKey(oldNodeAccount.voting.publicKey, networkType)
-                    : Account.generateNewAccount(networkType),
-            );
-        if (nodePreset.harvesting)
-            nodeAccount.vrf = this.generateAccount(
-                networkType,
-                privateKeySecurityMode,
-                KeyName.VRF,
-                oldNodeAccount?.vrf,
-                nodePreset.vrfPrivateKey,
-                nodePreset.vrfPublicKey,
-            );
-        return nodeAccount;
+    public static loadSharedPreset(): CustomPreset {
+        return YamlUtils.loadYaml(join(Constants.ROOT_FOLDER, 'presets', 'shared.yml'), false) as ConfigPreset;
+    }
+    public mergePresets<T extends CustomPreset>(object: T | undefined, ...otherArgs: (CustomPreset | undefined)[]): T {
+        const presets = [object, ...otherArgs];
+        const reversed = [...presets].reverse();
+        const presetData = _.merge({}, ...presets);
+        const inflation = reversed.find((p) => !_.isEmpty(p?.inflation))?.inflation;
+        const knownRestGateways = reversed.find((p) => !_.isEmpty(p?.knownRestGateways))?.knownRestGateways;
+        const knownPeers = reversed.find((p) => !_.isEmpty(p?.knownPeers))?.knownPeers;
+        if (inflation) presetData.inflation = inflation;
+        if (knownRestGateways) presetData.knownRestGateways = knownRestGateways;
+        if (knownPeers) presetData.knownPeers = knownPeers;
+        return presetData;
     }
 
-    public async generateNodeAccounts(
-        oldAddresses: Addresses | undefined,
-        presetData: ConfigPreset,
-        networkType: NetworkType,
-    ): Promise<NodeAccount[]> {
-        return Promise.all(
-            presetData.nodes!.map((node, index) =>
-                this.generateNodeAccount(oldAddresses?.nodes?.[index], presetData, index, node, networkType),
-            ),
-        );
-    }
-
-    private static getArray(size: number): number[] {
-        return [...Array(size).keys()];
-    }
-
-    public createPresetData({
-        password,
-        root,
-        preset,
-        assembly,
-        customPreset,
-        customPresetObject,
-    }: {
-        password: string | undefined;
-        root: string;
-        preset: Preset;
+    public createPresetData(params: {
+        workingDir: string;
+        password: Password;
+        preset?: string;
         assembly?: string;
         customPreset?: string;
         customPresetObject?: CustomPreset;
+        oldPresetData?: ConfigPreset;
     }): ConfigPreset {
-        const sharedPreset: ConfigPreset = BootstrapUtils.loadYaml(join(root, 'presets', 'shared.yml'), false);
-        const networkPreset: CustomPreset = BootstrapUtils.loadYaml(`${root}/presets/${preset}/network.yml`, false);
-        const assemblyPreset: CustomPreset = assembly
-            ? BootstrapUtils.loadYaml(`${root}/presets/${preset}/assembly-${assembly}.yml`, false)
-            : {};
-        const customPresetFileObject: CustomPreset = customPreset ? BootstrapUtils.loadYaml(customPreset, password) : {};
-        //Deep merge
-        const inflation: Record<string, number> =
-            customPresetObject?.inflation ||
-            customPresetFileObject?.inflation ||
-            assemblyPreset?.inflation ||
-            networkPreset?.inflation ||
-            sharedPreset?.inflation ||
-            {};
-        const presetData: ConfigPreset = _.merge(sharedPreset, networkPreset, assemblyPreset, customPresetFileObject, customPresetObject, {
-            version: 1,
-            bootstrapVersion: BootstrapUtils.VERSION,
-            preset: preset,
-            assembly: assembly || 'default',
-        });
-        presetData.inflation = inflation;
+        const customPreset = params.customPreset;
+        const customPresetObject = params.customPresetObject;
+        const oldPresetData = params.oldPresetData;
+        const customPresetFileObject = this.loadCustomPreset(customPreset, params.password);
+        const preset = params.preset || params.customPresetObject?.preset || customPresetFileObject?.preset || oldPresetData?.preset;
+        if (!preset) {
+            throw new KnownError(
+                'Preset value could not be resolved from target folder contents. Please provide the --preset parameter when running the config/start command.',
+            );
+        }
+
+        const sharedPreset = ConfigLoader.loadSharedPreset();
+        const networkPreset = ConfigLoader.loadNetworkPreset(preset, params.workingDir);
+
+        const assembly =
+            params.assembly ||
+            params.customPresetObject?.assembly ||
+            customPresetFileObject?.assembly ||
+            params.oldPresetData?.assembly ||
+            defaultAssembly[preset];
+
+        if (!assembly) {
+            throw new KnownError(
+                `Preset ${preset} requires assembly (-a, --assembly option). Possible values are: ${Object.keys(Assembly).join(', ')}`,
+            );
+        }
+
+        const assemblyPreset = ConfigLoader.loadAssembly(preset, assembly, params.workingDir);
+        const providedCustomPreset = this.mergePresets(customPresetFileObject, customPresetObject);
+        const resolvedCustomPreset = _.isEmpty(providedCustomPreset) ? oldPresetData?.customPresetCache || {} : providedCustomPreset;
+        const presetData = this.mergePresets(sharedPreset, networkPreset, assemblyPreset, resolvedCustomPreset) as ConfigPreset;
+
         if (!ConfigLoader.presetInfoLogged) {
-            logger.info(`Generating config from preset ${preset}`);
+            this.logger.info(`Generating config from preset '${preset}'`);
             if (assembly) {
-                logger.info(`Assembly preset ${assembly}`);
+                this.logger.info(`Using assembly '${assembly}'`);
             }
             if (customPreset) {
-                logger.info(`Custom preset file ${customPreset}`);
+                this.logger.info(`Using custom preset file '${customPreset}'`);
             }
         }
-        ConfigLoader.presetInfoLogged = true;
-        if (presetData.assemblies && !assembly) {
-            throw new Error(`Preset ${preset} requires assembly (-a, --assembly option). Possible values are: ${presetData.assemblies}`);
+        if (!presetData.networkType) {
+            throw new Error('Network Type could not be resolved. Have your provided the right --preset?');
         }
+        ConfigLoader.presetInfoLogged = true;
         const presetDataWithDynamicDefaults: ConfigPreset = {
             ...presetData,
+            version: 1,
+            preset: preset,
+            assembly: assembly,
             nodes: this.dynamicDefaultNodeConfiguration(presetData.nodes),
+            customPresetCache: resolvedCustomPreset,
         };
         return this.expandRepeat(presetDataWithDynamicDefaults);
     }
 
-    public dynamicDefaultNodeConfiguration(nodes?: NodePreset[]): NodePreset[] {
+    public dynamicDefaultNodeConfiguration(nodes?: Partial<NodePreset>[]): NodePreset[] {
         return _.map(nodes || [], (node) => {
-            const expandedNodeConfiguration = { ...this.getDefaultConfiguration(node), ...node };
-            const roles = this.resolveRoles(expandedNodeConfiguration);
-            return { ...expandedNodeConfiguration, roles };
+            return { ...this.getDefaultConfiguration(node), ...node } as NodePreset;
         });
     }
 
-    private getDefaultConfiguration(node: NodePreset): DeepPartial<NodePreset> {
+    private getDefaultConfiguration(node: Partial<NodePreset>): Partial<NodePreset> {
         if (node.harvesting && node.api) {
             return {
                 syncsource: true,
                 filespooling: true,
                 partialtransaction: true,
-                openPort: true,
-                sinkType: 'Async',
-                enableSingleThreadPool: false,
                 addressextraction: true,
-                enableAutoSyncCleanup: false,
                 mongo: true,
                 zeromq: true,
+                enableAutoSyncCleanup: false,
             };
         }
         if (node.api) {
             return {
-                sinkType: 'Async',
                 syncsource: false,
                 filespooling: true,
                 partialtransaction: true,
-                enableSingleThreadPool: false,
                 addressextraction: true,
                 mongo: true,
                 zeromq: true,
                 enableAutoSyncCleanup: false,
             };
         }
-        //peer only (harvesting or not).
+        // peer only (harvesting or not).
         return {
-            sinkType: 'Sync',
-            enableSingleThreadPool: true,
+            syncsource: true,
+            filespooling: false,
+            partialtransaction: false,
             addressextraction: false,
             mongo: false,
             zeromq: false,
-            syncsource: true,
-            filespooling: false,
             enableAutoSyncCleanup: true,
-            partialtransaction: false,
         };
-    }
-
-    private resolveRoles(nodePreset: NodePreset): string {
-        if (nodePreset.roles) {
-            return nodePreset.roles;
-        }
-        const roles: string[] = [];
-        if (nodePreset.syncsource) {
-            roles.push('Peer');
-        }
-        if (nodePreset.api) {
-            roles.push('Api');
-        }
-        if (nodePreset.voting) {
-            roles.push('Voting');
-        }
-        return roles.join(',');
     }
 
     public static toConfig(account: Account | PublicAccount): ConfigAccount {
@@ -472,8 +216,8 @@ export class ConfigLoader {
             databases: this.expandServicesRepeat(presetData, presetData.databases || []),
             nodes: this.expandServicesRepeat(presetData, presetData.nodes || []),
             gateways: this.expandServicesRepeat(presetData, presetData.gateways || []),
+            httpsProxies: this.expandServicesRepeat(presetData, presetData.httpsProxies || []),
             explorers: this.expandServicesRepeat(presetData, presetData.explorers || []),
-            wallets: this.expandServicesRepeat(presetData, presetData.wallets || []),
             faucets: this.expandServicesRepeat(presetData, presetData.faucets || []),
             nemesis: this.applyValueTemplate(presetData, presetData.nemesis),
         };
@@ -495,16 +239,20 @@ export class ConfigLoader {
         if (!_.isString(value)) {
             return value;
         }
-        return BootstrapUtils.runTemplate(value, context);
+        return HandlebarsUtils.runTemplate(value, context);
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     public expandServicesRepeat(context: any, services: any[]): any[] {
         return _.flatMap(services || [], (service) => {
-            if (service.repeat === 0) {
+            if (!_.isObject(service)) {
+                return service;
+            }
+            const repeat = (service as any).repeat;
+            if (repeat === 0) {
                 return [];
             }
-            return _.range(service.repeat || 1).map((index) => {
+            return _.range(repeat || 1).map((index) => {
                 return _.omit(
                     _.mapValues(service, (v: any) =>
                         this.applyValueTemplate(
@@ -525,7 +273,7 @@ export class ConfigLoader {
     public loadExistingPresetDataIfPreset(target: string, password: Password): ConfigPreset | undefined {
         const generatedPresetLocation = this.getGeneratedPresetLocation(target);
         if (existsSync(generatedPresetLocation)) {
-            return BootstrapUtils.loadYaml(generatedPresetLocation, password);
+            return YamlUtils.loadYaml(generatedPresetLocation, password);
         }
         return undefined;
     }
@@ -533,74 +281,38 @@ export class ConfigLoader {
     public loadExistingPresetData(target: string, password: Password): ConfigPreset {
         const presetData = this.loadExistingPresetDataIfPreset(target, password);
         if (!presetData) {
-            throw new Error(`The file ${this.getGeneratedPresetLocation(target)} doesn't exist. Have you executed the 'config' command?`);
+            throw new Error(
+                `The file ${this.getGeneratedPresetLocation(
+                    target,
+                )} doesn't exist. Have you executed the 'config' command? Have you provided the right --target param?`,
+            );
         }
         return presetData;
-    }
-
-    public loadExistingAddressesIfPreset(target: string, password: Password): Addresses | undefined {
-        const generatedAddressLocation = this.getGeneratedAddressLocation(target);
-        if (existsSync(generatedAddressLocation)) {
-            const presetData = this.loadExistingPresetData(target, password);
-            return this.migrateAddresses(BootstrapUtils.loadYaml(generatedAddressLocation, password), presetData.networkType);
-        }
-        return undefined;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    public migrateAddresses(addresses: any, networkType: NetworkType): Addresses {
-        const migrations = this.getAddressesMigration(networkType);
-        return BootstrapUtils.migrate('addresses.yml', addresses, migrations);
-    }
-
-    public getAddressesMigration(networkType: NetworkType): Migration[] {
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
-        const configLoader = this;
-        return [
-            {
-                description: 'Key names migration',
-
-                migrate(from: any): any {
-                    (from.nodes || []).forEach((nodeAddresses: any): any => {
-                        if (nodeAddresses.signing) {
-                            nodeAddresses.main = nodeAddresses.signing;
-                        } else {
-                            if (nodeAddresses.ssl) {
-                                nodeAddresses.main = ConfigLoader.toConfig(
-                                    Account.createFromPrivateKey(nodeAddresses.ssl.privateKey, networkType),
-                                );
-                            }
-                        }
-                        nodeAddresses.transport = configLoader.generateAccount(
-                            networkType,
-                            PrivateKeySecurityMode.ENCRYPT,
-                            KeyName.Transport,
-                            undefined,
-                            nodeAddresses?.node?.privateKey,
-                            undefined,
-                        );
-                        delete nodeAddresses.node;
-                        delete nodeAddresses.signing;
-                        delete nodeAddresses.ssl;
-                    });
-                    return from;
-                },
-            },
-        ];
-    }
-
-    public loadExistingAddresses(target: string, password: Password): Addresses {
-        const addresses = this.loadExistingAddressesIfPreset(target, password);
-        if (!addresses) {
-            throw new Error(`The file ${this.getGeneratedAddressLocation(target)} doesn't exist. Have you executed the 'config' command?`);
-        }
-        return addresses;
     }
 
     public getGeneratedPresetLocation(target: string): string {
         return join(target, 'preset.yml');
     }
 
+    public loadExistingAddressesIfPreset(target: string, password: Password): Addresses | undefined {
+        const generatedAddressLocation = this.getGeneratedAddressLocation(target);
+        if (existsSync(generatedAddressLocation)) {
+            return new MigrationService(this.logger).migrateAddresses(YamlUtils.loadYaml(generatedAddressLocation, password));
+        }
+        return undefined;
+    }
+
+    public loadExistingAddresses(target: string, password: Password): Addresses {
+        const addresses = this.loadExistingAddressesIfPreset(target, password);
+        if (!addresses) {
+            throw new Error(
+                `The file ${this.getGeneratedAddressLocation(
+                    target,
+                )} doesn't exist. Have you executed the 'config' command? Have you provided the right --target param?`,
+            );
+        }
+        return addresses;
+    }
     public getGeneratedAddressLocation(target: string): string {
         return join(target, 'addresses.yml');
     }

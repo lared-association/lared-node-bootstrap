@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NEM
+ * Copyright 2022 Fernando Boucquez
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 
 import { NetworkType } from 'symbol-sdk';
+import { VotingKeyFile } from '../service';
 
 export interface CertificatePair {
     privateKey?: string;
@@ -35,8 +36,8 @@ export interface NodeAccount {
     remote?: ConfigAccount;
     // VRF key is produced if node is peer
     vrf?: ConfigAccount;
-    // Voting key is produced if node is voting
-    voting?: ConfigAccount;
+    // Voting keys are produced if node is voting
+    voting?: VotingKeyFile[];
     roles: string;
     name: string;
     friendlyName: string;
@@ -45,7 +46,6 @@ export interface NodeAccount {
 export interface MosaicAccounts {
     name: string;
     id: string;
-    type: 'currency' | 'harvest';
     accounts: ConfigAccount[];
 }
 
@@ -53,7 +53,7 @@ export interface Addresses {
     version: number;
     nodes?: NodeAccount[];
     nemesisGenerationHashSeed: string;
-    sinkAddress: string;
+    sinkAddress?: string;
     nemesisSigner?: ConfigAccount;
     networkType: NetworkType;
     mosaics?: MosaicAccounts[];

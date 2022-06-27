@@ -9,7 +9,7 @@ if [[ $(lsb_release -rs) == "18.04" ]]; then
 
 	echo "Compatible version - Ubuntu 18.04"
 else
-	echo "FATAL: Non-compatible version"
+	echo "FATAL: Non-compatible version, use Ubuntu 18.04 "
 	exit 1
 
 fi
@@ -63,7 +63,6 @@ function git_pull(){
 	  sudo apt install git
 	}
 	cd $DIR
-	git clone https://matasvosylius:pkPq83teZ3pZ9S838Hh5@bitbucket.org/superhow/docker-node-lared.git > /dev/null 2>&1 
 }
 
 function cli_install(){

@@ -1,5 +1,5 @@
 `lared-node-bootstrap run`
-======================
+===================
 
 It boots the network via docker using the generated `docker-compose.yml` file and configuration. The config and compose methods/commands need to be called before this method. This is just a wrapper for the `docker-compose up` bash call.
 
@@ -18,7 +18,7 @@ OPTIONS
       If provided, docker-compose will run with -b (--build)
 
   -d, --detached
-      If provided, docker-compose will run with -d (--detached) and this command will wait unit server is running before 
+      If provided, docker-compose will run with -d (--detached) and this command will wait unit server is running before
       returning
 
   -h, --help
@@ -40,6 +40,10 @@ OPTIONS
 
       The health check process handles 'repeat' and custom 'openPort' services.
 
+  --logger=logger
+      [default: Console,File] The loggers the command will use. Options are: Console,File,Silent. Use ',' to select
+      multiple loggers.
+
   --pullImages
       It pulls the images from DockerHub when running the configuration. It only affects alpha/dev docker images.
 
@@ -53,4 +57,4 @@ EXAMPLE
   $ lared-node-bootstrap run
 ```
 
-_See code: [src/commands/run.ts](https://github.com/lared-association/lared-node-bootstrap/blob/master/src/commands/run.ts)_
+_See code: [src/commands/run.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/run.ts)_

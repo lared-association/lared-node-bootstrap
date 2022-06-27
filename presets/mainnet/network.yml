@@ -4,138 +4,116 @@ totalChainImportance: 420000
 minHarvesterBalance: 200
 maxHarvesterBalance: 420000
 minVoterBalance: 2000
-networkType: 152
-minNamespaceDuration: 1m
+nemesisGenerationHashSeed: 7A7BB5E6CDC05C7E86B2D278A84D08FF8A17F96957B575F58CF49202888AE022
+nemesisSignerPublicKey: 93C7C0398E34940BF8263DEF1FB0F6E4E4C43E8DFF118D0FDC34B7E19174A8BF
+harvestNetworkFeeSinkAddress: NBVXJWIG3YOYD7XUMWL323UAUPPUUK2KOQ3B4XA
+harvestNetworkFeeSinkAddressV1: NBVXJWIG3YOYD7XUMWL323UAUPPUUK2KOQ3B4XA
+mosaicRentalFeeSinkAddress: NDPKFHSMV3PVRY3WMSEVGIBHUDMPGX5EDMFHJRY
+namespaceRentalFeeSinkAddress: NDPKFHSMV3PVRY3WMSEVGIBHUDMPGX5EDMFHJRY
 assemblies: 'api, dual, peer'
-harvestBeneficiaryPercentage: 15
+# baseNamespace: lrd
+currencyName: lrd
+harvestingName: red
 batchVerificationRandomSource: /dev/urandom
-currencyMosaicId: 451AFC47F3BED2A1
-harvestingMosaicId: 13E9B8E6C3378A2F
-baseNamespace: lared
-currencyName: 'moneda'
-harvestingName: 'red'
-votingSetGrouping: 180
+currencyMosaicId: 046A12946D5734F9
+harvestBeneficiaryPercentage: 15
+harvestingMosaicId: 0D5D413AC84F523A
+epochAdjustment: 1655719200s
+# 2 years
+votingKeyDesiredLifetime: 2920
+votingKeyDesiredFutureLifetime: 60
+enableRevoteOnBoot: false
+networkType: 104
+importanceGrouping: 180
+votingSetGrouping: 1440
+minVotingKeyLifetime: 112
+maxVotingKeyLifetime: 26280
+lastKnownNetworkEpoch: 181
+stepDuration: 5m
 maxSecretLockDuration: 30d
-maxNamespaceDuration: 365d
-namespaceGracePeriodDuration: 2m
+maxNamespaceDuration: 3650d
+minNamespaceDuration: 1m
+namespaceGracePeriodDuration: 30d
 blockGenerationTargetTime: 15s
-nemesisGenerationHashSeed: 8CE1EF876A8CCE234E8C600877D568810C6797F031C75E63AA0E6674B00F057C
-nemesisSignerPublicKey: 9EF80D358297E945C4CC2C90815AE8000B1682228247987D9BB4DDC9FB83E43C
-sinkAddress: TBCGCKI6K5Z5BUL7WXTNXRTHP4WBZWCTZ6YKK7Y
-harvestNetworkFeeSinkAddress: TBCGCKI6K5Z5BUL7WXTNXRTHP4WBZWCTZ6YKK7Y
-mosaicRentalFeeSinkAddress: TDMJYOW77JYNLIDSU6BA57YEHM337ZLQWLEDCNQ
-namespaceRentalFeeSinkAddress: TCZW3TWABIQYM2FWRHCVOLTICTJ5KAMSS3G3XDY
-faucetUrl: 'http://faucet.lared.superhow.net'
-knownRestGateways:
-    - 'http://20.52.134.220:3000'
-    - 'http://20.52.130.150:3000'
-
-trustedHosts:
+totalVotingBalanceCalculationFix: 528000
+throttlingBurst: 800
+throttlingRate: 600
+reservedRootNamespaceNames: 'lrd, red, user, account, org, com, biz, net, edu, mil, gov, inf'
+nonVotingUnfinalizedBlocksDuration: 10m
+votingUnfinalizedBlocksDuration: 0m
+restExtensions: 'accountLink, aggregate, lockHash, lockSecret, mosaic, metadata, multisig, namespace, receipts, restrictions, transfer'
+explorerUrl: https://explorer.lared.superhow.net/
+statisticsServiceUrl: https://stats-mainnet.lared.superhow.net
+knownRestGateways: []
+knownPeers: []
 inflation:
-    starting-at-height-1: 990
-    starting-at-height-40430: 989
-    starting-at-height-80640: 992
-    starting-at-height-362880: 965
-    starting-at-height-403200: 942
-    starting-at-height-443520: 924
-    starting-at-height-483840: 909
-    starting-at-height-524160: 897
-    starting-at-height-564480: 886
-    starting-at-height-604800: 876
-    starting-at-height-645120: 868
-    starting-at-height-685440: 846
-    starting-at-height-725760: 827
-    starting-at-height-766080: 809
-    starting-at-height-806400: 794
-    starting-at-height-846720: 779
-    starting-at-height-887040: 767
-    starting-at-height-927360: 755
-    starting-at-height-967680: 744
-    starting-at-height-1008000: 724
-    starting-at-height-1048320: 706
-    starting-at-height-1088640: 689
-    starting-at-height-1128960: 673
-    starting-at-height-1169280: 659
-    starting-at-height-1209600: 645
-    starting-at-height-1249920: 632
-    starting-at-height-1290240: 620
-    starting-at-height-1330560: 609
-    starting-at-height-1370880: 598
-    starting-at-height-2217600: 397
-    starting-at-height-3064320: 320
-    starting-at-height-3911040: 276
-    starting-at-height-4757760: 248
-    starting-at-height-5604480: 228
-    starting-at-height-6451200: 214
-    starting-at-height-7297920: 203
-    starting-at-height-8144640: 194
-    starting-at-height-9152640: 184
-    starting-at-height-10241280: 174
-    starting-at-height-11491200: 164
-    starting-at-height-12862080: 154
-    starting-at-height-14434560: 144
-    starting-at-height-16168320: 135
-    starting-at-height-18144000: 126
-    starting-at-height-20321280: 117
-    starting-at-height-22780800: 109
-    starting-at-height-25522560: 101
-    starting-at-height-28586880: 94
-    starting-at-height-32054400: 87
-    starting-at-height-35884800: 80
-    starting-at-height-40239360: 74
-    starting-at-height-45077760: 68
-    starting-at-height-50520960: 63
-    starting-at-height-56568960: 58
-    starting-at-height-63383040: 53
-    starting-at-height-71003520: 49
-    starting-at-height-79551360: 45
-    starting-at-height-89107200: 41
-    starting-at-height-99832320: 38
-    starting-at-height-111807360: 35
-    starting-at-height-125233920: 32
-    starting-at-height-140273280: 29
-    starting-at-height-157127040: 27
-    starting-at-height-175996800: 24
-    starting-at-height-197124480: 22
-    starting-at-height-220792320: 20
-    starting-at-height-247322880: 19
-    starting-at-height-276998400: 17
-    starting-at-height-310262400: 0
-knownPeers:
-    api-node:
-        - publicKey: c461315ff50a4b344b7349ab9377df72f5db63fef72cbb4fdf8b0b00b616056d
-          endpoint:
-              host: 20.52.130.150
-              port: 7900
-          metadata:
-              name: LaRed-testnet-dual1
-              roles: Api,Peer,Voting
-        - publicKey: 74b0bf69aa7c6c912698978da8e7aa6ccf461899c93b4c83cdbba95bb98956af
-          endpoint:
-              host: 20.52.134.220
-              port: 7900
-          metadata:
-              name: LaRed-testnet-dual2
-              roles: Api,Peer,Voting
-    peer-node:
-        - publicKey: 8b9912e15040a59a03dd74ae81ad5135d2a7177859fa83af4ec9fce7d9d5048a
-          endpoint:
-              host: 20.52.132.101
-              port: 7900
-          metadata:
-              name: LaRed-testnet-peer1
-              roles: Peer,Voting
-        - publicKey: c461315ff50a4b344b7349ab9377df72f5db63fef72cbb4fdf8b0b00b616056d
-          endpoint:
-              host: 20.52.130.150
-              port: 7900
-          metadata:
-              name: LaRed-testnet-dual1
-              roles: Api,Peer,Voting
-        - publicKey: 74b0bf69aa7c6c912698978da8e7aa6ccf461899c93b4c83cdbba95bb98956af
-          endpoint:
-              host: 20.52.134.220
-              port: 7900
-          metadata:
-              name: LaRed-testnet-dual2
-              roles: Api,Peer,Voting
+    starting-at-height-1: 0
+    starting-at-height-201600: 990
+    starting-at-height-242030: 989
+    starting-at-height-282240: 992
+    starting-at-height-564480: 965
+    starting-at-height-604800: 942
+    starting-at-height-645120: 924
+    starting-at-height-685440: 909
+    starting-at-height-725760: 897
+    starting-at-height-766080: 886
+    starting-at-height-806400: 876
+    starting-at-height-846720: 868
+    starting-at-height-887040: 846
+    starting-at-height-927360: 827
+    starting-at-height-967680: 809
+    starting-at-height-1008000: 794
+    starting-at-height-1048320: 779
+    starting-at-height-1088640: 767
+    starting-at-height-1128960: 755
+    starting-at-height-1169280: 744
+    starting-at-height-1209600: 724
+    starting-at-height-1249920: 706
+    starting-at-height-1290240: 689
+    starting-at-height-1330560: 673
+    starting-at-height-1370880: 659
+    starting-at-height-1411200: 645
+    starting-at-height-1451520: 632
+    starting-at-height-1491840: 620
+    starting-at-height-1532160: 609
+    starting-at-height-1572480: 598
+    starting-at-height-2419200: 397
+    starting-at-height-3265920: 320
+    starting-at-height-4112640: 276
+    starting-at-height-4959360: 248
+    starting-at-height-5806080: 228
+    starting-at-height-6652800: 214
+    starting-at-height-7499520: 203
+    starting-at-height-8346240: 194
+    starting-at-height-9354240: 184
+    starting-at-height-10442880: 174
+    starting-at-height-11692800: 164
+    starting-at-height-13063680: 154
+    starting-at-height-14636160: 144
+    starting-at-height-16369920: 135
+    starting-at-height-18345600: 126
+    starting-at-height-20522880: 117
+    starting-at-height-22982400: 109
+    starting-at-height-25724160: 101
+    starting-at-height-28788480: 94
+    starting-at-height-32256000: 87
+    starting-at-height-36086400: 80
+    starting-at-height-40440960: 74
+    starting-at-height-45279360: 68
+    starting-at-height-50722560: 63
+    starting-at-height-56770560: 58
+    starting-at-height-63584640: 53
+    starting-at-height-71205120: 49
+    starting-at-height-79752960: 45
+    starting-at-height-89308800: 41
+    starting-at-height-100033920: 38
+    starting-at-height-112008960: 35
+    starting-at-height-125435520: 32
+    starting-at-height-140474880: 29
+    starting-at-height-157328640: 27
+    starting-at-height-176198400: 24
+    starting-at-height-197326080: 22
+    starting-at-height-220993920: 20
+    starting-at-height-247524480: 19
+    starting-at-height-277200000: 17
+    starting-at-height-310464000: 0

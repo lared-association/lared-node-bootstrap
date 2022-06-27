@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NEM
+ * Copyright 2022 Fernando Boucquez
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,19 @@
  */
 
 import { Command, flags } from '@oclif/command';
-import { BootstrapService, BootstrapUtils, ConfigService, Preset } from '../service';
-import { CommandUtils } from '../service/CommandUtils';
+import { LoggerFactory, System } from '../logger';
+import { Assembly, BootstrapAccountResolver, BootstrapService, CommandUtils, ConfigService, Constants, Preset } from '../service';
 
 export default class Config extends Command {
     static description = 'Command used to set up the configuration files and the nemesis block for the current network';
 
     static examples = [
-        `$ lared-node-bootstrap config -p bootstrap`,
-        `$ lared-node-bootstrap config -p testnet -a dual --password 1234`,
-        `$ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap config -p testnet -a dual`,
+        `$ lared-node-bootstrapotstrap config -p bootstrap`,
+        `$ lared-node-bootstrapotstrap config -p testnet -a dual --password 1234`,
+        `$ lared-node-bootstrapotstrap config -p mainnet -a peer -c custom-preset.yml`,
+        `$ lared-node-bootstrapotstrap config -p mainnet -a my-custom-assembly.yml -c custom-preset.yml`,
+        `$ lared-node-bootstrapotstrap config -p my-custom-network.yml -a dual -c custom-preset.yml`,
+        `$ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrapotstrap config -p testnet -a dual`,
     ];
 
     static flags = {
@@ -32,60 +35,59 @@ export default class Config extends Command {
         target: CommandUtils.targetFlag,
         password: CommandUtils.passwordFlag,
         noPassword: CommandUtils.noPasswordFlag,
-        preset: flags.enum({
+        preset: flags.string({
             char: 'p',
-            description: 'the network preset',
-            options: Object.keys(Preset).map((v) => v as Preset),
-            default: ConfigService.defaultParams.preset,
+            description: `The network preset. It can be provided via custom preset or cli parameter. If not provided, the value is resolved from the target/preset.yml file. Options are: ${Object.keys(
+                Preset,
+            ).join(', ')}, my-custom-network.yml (advanced, only for custom networks).`,
         }),
         assembly: flags.string({
             char: 'a',
-            description: 'An optional assembly type, example "dual" for testnet',
+            description: `The assembly that defines the node(s) layout. It can be provided via custom preset or cli parameter. If not provided, the value is resolved from the target/preset.yml file. Options are: ${Object.keys(
+                Assembly,
+            ).join(', ')}, my-custom-assembly.yml (advanced).`,
         }),
-
         customPreset: flags.string({
             char: 'c',
-            description: 'External preset file. Values in this file will override the provided presets (optional)',
-            required: false,
+            description: `External preset file. Values in this file will override the provided presets.`,
         }),
         reset: flags.boolean({
             char: 'r',
-            description: 'It resets the configuration generating a new one',
+            description: 'It resets the configuration generating a new one.',
             default: ConfigService.defaultParams.reset,
         }),
 
         upgrade: flags.boolean({
-            description: `It regenerates the configuration reusing the previous keys. Use this flag when upgrading the version of bootstrap to keep your node up to date without dropping the local data. The original preset (-t), assembly (-a), and custom preset (-a) must be used. Backup the target folder before upgrading.`,
+            description: `It regenerates the configuration reusing the previous keys. Use this flag when upgrading the version of bootstrap to keep your node up to date without dropping the local data. Backup the target folder before upgrading.`,
             default: ConfigService.defaultParams.reset,
         }),
-
+        offline: CommandUtils.offlineFlag,
         report: flags.boolean({
             description: 'It generates reStructuredText (.rst) reports describing the configuration of each node.',
             default: ConfigService.defaultParams.report,
         }),
 
-        pullImages: flags.boolean({
-            description:
-                'It pulls the utility images from DockerHub when running the configuration. It only affects alpha/dev docker images.',
-            default: ConfigService.defaultParams.pullImages,
-        }),
-
         user: flags.string({
             char: 'u',
-            description: `User used to run docker images when creating configuration files like certificates or nemesis block. "${BootstrapUtils.CURRENT_USER}" means the current user.`,
-            default: BootstrapUtils.CURRENT_USER,
+            description: `User used to run docker images when creating configuration files like certificates or nemesis block. "${Constants.CURRENT_USER}" means the current user.`,
+            default: Constants.CURRENT_USER,
         }),
+        logger: CommandUtils.getLoggerFlag(...System),
     };
 
     public async run(): Promise<void> {
         const { flags } = this.parse(Config);
-        BootstrapUtils.showBanner();
+        const logger = LoggerFactory.getLogger(flags.logger);
+        CommandUtils.showBanner();
         flags.password = await CommandUtils.resolvePassword(
+            logger,
             flags.password,
             flags.noPassword,
             CommandUtils.passwordPromptDefaultMessage,
             true,
         );
-        await new BootstrapService(this.config.root).config(flags);
+        const workingDir = Constants.defaultWorkingDir;
+        const accountResolver = new BootstrapAccountResolver(logger);
+        await new BootstrapService(logger).config({ ...flags, workingDir, accountResolver });
     }
 }

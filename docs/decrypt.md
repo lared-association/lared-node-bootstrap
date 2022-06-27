@@ -1,5 +1,5 @@
 `lared-node-bootstrap decrypt`
-==========================
+=======================
 
 It decrypts a yml file using the provided password. The source file can be a custom preset file, a preset.yml file or an addresses.yml.
 
@@ -18,6 +18,9 @@ USAGE
 OPTIONS
   -h, --help                 It shows the help of this command.
   --destination=destination  (required) The destination decrypted file to create. The destination file must not exist.
+
+  --logger=logger            [default: Console] The loggers the command will use. Options are: Console,File,Silent. Use
+                             ',' to select multiple loggers.
 
   --password=password        The password to use to decrypt the source file into the destination file. Bootstrap prompts
                              for a password by default, can be provided in the command line (--password=XXXX) or
@@ -52,8 +55,7 @@ EXAMPLES
   $ rm plain-addresses.yml
   $ rm plain-custom-preset.yml
 
-  $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap decrypt --source target/addresses.yml --destination 
-  plain-addresses.yml
+  $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap decrypt --source target/addresses.yml --destination plain-addresses.yml
 ```
 
-_See code: [src/commands/decrypt.ts](https://github.com/lared-association/lared-node-bootstrap/blob/master/src/commands/decrypt.ts)_
+_See code: [src/commands/decrypt.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/decrypt.ts)_

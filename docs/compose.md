@@ -1,5 +1,5 @@
 `lared-node-bootstrap compose`
-==========================
+=======================
 
 It generates the `docker-compose.yml` file from the configured network.
 
@@ -20,8 +20,13 @@ OPTIONS
   -u, --user=user      [default: current] User used to run the services in the docker-compose.yml file. "current" means
                        the current user.
 
+  --logger=logger      [default: Console,File] The loggers the command will use. Options are: Console,File,Silent. Use
+                       ',' to select multiple loggers.
+
   --noPassword         When provided, Bootstrap will not use a password, so private keys will be stored in plain text.
                        Use with caution.
+
+  --offline            If --offline is used, Bootstrap resolves the configuration without querying the running network.
 
   --password=password  A password used to encrypt and decrypt private keys in preset files like addresses.yml and
                        preset.yml. Bootstrap prompts for a password by default, can be provided in the command line
@@ -33,4 +38,4 @@ EXAMPLE
   $ lared-node-bootstrap compose
 ```
 
-_See code: [src/commands/compose.ts](https://github.com/lared-association/lared-node-bootstrap/blob/master/src/commands/compose.ts)_
+_See code: [src/commands/compose.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/compose.ts)_

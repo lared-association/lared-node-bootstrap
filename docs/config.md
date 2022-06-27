@@ -1,5 +1,5 @@
 `lared-node-bootstrap config`
-=========================
+======================
 
 Command used to set up the configuration files and the nemesis block for the current network
 
@@ -14,47 +14,55 @@ USAGE
   $ lared-node-bootstrap config
 
 OPTIONS
-  -a, --assembly=assembly                   An optional assembly type, example "dual" for testnet
+  -a, --assembly=assembly          The assembly that defines the node(s) layout. It can be provided via custom preset or
+                                   cli parameter. If not provided, the value is resolved from the target/preset.yml
+                                   file. Options are: dual, peer, api, demo, multinode, services, my-custom-assembly.yml
+                                   (advanced).
 
-  -c, --customPreset=customPreset           External preset file. Values in this file will override the provided presets
-                                            (optional)
+  -c, --customPreset=customPreset  External preset file. Values in this file will override the provided presets.
 
-  -h, --help                                It shows the help of this command.
+  -h, --help                       It shows the help of this command.
 
-  -p, --preset=(bootstrap|testnet|mainnet)  [default: bootstrap] the network preset
+  -p, --preset=preset              The network preset. It can be provided via custom preset or cli parameter. If not
+                                   provided, the value is resolved from the target/preset.yml file. Options are:
+                                   bootstrap, testnet, mainnet, my-custom-network.yml (advanced, only for custom
+                                   networks).
 
-  -r, --reset                               It resets the configuration generating a new one
+  -r, --reset                      It resets the configuration generating a new one.
 
-  -t, --target=target                       [default: target] The target folder where the lared-node-bootstrap network is
-                                            generated
+  -t, --target=target              [default: target] The target folder where the lared-node-bootstrap network is generated
 
-  -u, --user=user                           [default: current] User used to run docker images when creating
-                                            configuration files like certificates or nemesis block. "current" means the
-                                            current user.
+  -u, --user=user                  [default: current] User used to run docker images when creating configuration files
+                                   like certificates or nemesis block. "current" means the current user.
 
-  --noPassword                              When provided, Bootstrap will not use a password, so private keys will be
-                                            stored in plain text. Use with caution.
+  --logger=logger                  [default: Console,File] The loggers the command will use. Options are:
+                                   Console,File,Silent. Use ',' to select multiple loggers.
 
-  --password=password                       A password used to encrypt and decrypt private keys in preset files like
-                                            addresses.yml and preset.yml. Bootstrap prompts for a password by default,
-                                            can be provided in the command line (--password=XXXX) or disabled in the
-                                            command line (--noPassword).
+  --noPassword                     When provided, Bootstrap will not use a password, so private keys will be stored in
+                                   plain text. Use with caution.
 
-  --pullImages                              It pulls the utility images from DockerHub when running the configuration.
-                                            It only affects alpha/dev docker images.
+  --offline                        If --offline is used, Bootstrap resolves the configuration without querying the
+                                   running network.
 
-  --report                                  It generates reStructuredText (.rst) reports describing the configuration of
-                                            each node.
+  --password=password              A password used to encrypt and decrypt private keys in preset files like
+                                   addresses.yml and preset.yml. Bootstrap prompts for a password by default, can be
+                                   provided in the command line (--password=XXXX) or disabled in the command line
+                                   (--noPassword).
 
-  --upgrade                                 It regenerates the configuration reusing the previous keys. Use this flag
-                                            when upgrading the version of bootstrap to keep your node up to date without
-                                            dropping the local data. The original preset (-t), assembly (-a), and custom
-                                            preset (-a) must be used. Backup the target folder before upgrading.
+  --report                         It generates reStructuredText (.rst) reports describing the configuration of each
+                                   node.
+
+  --upgrade                        It regenerates the configuration reusing the previous keys. Use this flag when
+                                   upgrading the version of bootstrap to keep your node up to date without dropping the
+                                   local data. Backup the target folder before upgrading.
 
 EXAMPLES
   $ lared-node-bootstrap config -p bootstrap
   $ lared-node-bootstrap config -p testnet -a dual --password 1234
+  $ lared-node-bootstrap config -p mainnet -a peer -c custom-preset.yml
+  $ lared-node-bootstrap config -p mainnet -a my-custom-assembly.yml -c custom-preset.yml
+  $ lared-node-bootstrap config -p my-custom-network.yml -a dual -c custom-preset.yml
   $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap config -p testnet -a dual
 ```
 
-_See code: [src/commands/config.ts](https://github.com/lared-association/lared-node-bootstrap/blob/master/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/config.ts)_
