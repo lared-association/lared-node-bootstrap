@@ -1,5 +1,5 @@
 `lared-node-bootstrap link`
-====================
+===========================
 
 It announces VRF and Voting Link transactions to the network for each node with 'Peer' or 'Voting' roles. This command finalizes the node registration to an existing network.
 
@@ -21,8 +21,8 @@ OPTIONS
 
   -h, --help                                           It shows the help of this command.
 
-  -t, --target=target                                  [default: target] The target folder where the lared-node-bootstrap
-                                                       network is generated
+  -t, --target=target                                  [default: target] The target folder where the
+                                                       lared-node-bootstrap network is generated
 
   -u, --url=url                                        [default: http://localhost:3000] the network url
 
@@ -58,4 +58,4 @@ EXAMPLES
   $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap link --unlink --useKnownRestGateways
 ```
 
-_See code: [src/commands/link.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/link.ts)_
+_See code: [src/commands/link.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/link.ts)_

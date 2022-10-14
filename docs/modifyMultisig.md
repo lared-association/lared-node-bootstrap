@@ -1,5 +1,5 @@
 `lared-node-bootstrap modifyMultisig`
-==============================
+=====================================
 
 Create or modify a multisig account
 
@@ -35,8 +35,8 @@ OPTIONS
                                                        change, a positive(+) number means increment and a negative(-)
                                                        number means decrement to the actual value.
 
-  -t, --target=target                                  [default: target] The target folder where the lared-node-bootstrap
-                                                       network is generated
+  -t, --target=target                                  [default: target] The target folder where the
+                                                       lared-node-bootstrap network is generated
 
   -u, --url=url                                        [default: http://localhost:3000] the network url
 
@@ -69,4 +69,4 @@ EXAMPLES
   $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap modifyMultisig --useKnownRestGateways
 ```
 
-_See code: [src/commands/modifyMultisig.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/modifyMultisig.ts)_
+_See code: [src/commands/modifyMultisig.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/modifyMultisig.ts)_

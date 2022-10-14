@@ -1,5 +1,5 @@
 `lared-node-bootstrap start`
-=====================
+============================
 
 Single command that aggregates config, compose and run in one line!
 
@@ -101,4 +101,4 @@ EXAMPLES
   $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap start -p testnet -a dual
 ```
 
-_See code: [src/commands/start.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/start.ts)_

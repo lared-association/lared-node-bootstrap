@@ -1,5 +1,5 @@
 `lared-node-bootstrap config`
-======================
+=============================
 
 Command used to set up the configuration files and the nemesis block for the current network
 
@@ -30,7 +30,8 @@ OPTIONS
 
   -r, --reset                      It resets the configuration generating a new one.
 
-  -t, --target=target              [default: target] The target folder where the lared-node-bootstrap network is generated
+  -t, --target=target              [default: target] The target folder where the lared-node-bootstrap network is
+                                   generated
 
   -u, --user=user                  [default: current] User used to run docker images when creating configuration files
                                    like certificates or nemesis block. "current" means the current user.
@@ -57,12 +58,12 @@ OPTIONS
                                    local data. Backup the target folder before upgrading.
 
 EXAMPLES
-  $ lared-node-bootstrap config -p bootstrap
-  $ lared-node-bootstrap config -p testnet -a dual --password 1234
-  $ lared-node-bootstrap config -p mainnet -a peer -c custom-preset.yml
-  $ lared-node-bootstrap config -p mainnet -a my-custom-assembly.yml -c custom-preset.yml
-  $ lared-node-bootstrap config -p my-custom-network.yml -a dual -c custom-preset.yml
-  $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap config -p testnet -a dual
+  $ lared-node-bootstrapotstrap config -p bootstrap
+  $ lared-node-bootstrapotstrap config -p testnet -a dual --password 1234
+  $ lared-node-bootstrapotstrap config -p mainnet -a peer -c custom-preset.yml
+  $ lared-node-bootstrapotstrap config -p mainnet -a my-custom-assembly.yml -c custom-preset.yml
+  $ lared-node-bootstrapotstrap config -p my-custom-network.yml -a dual -c custom-preset.yml
+  $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrapotstrap config -p testnet -a dual
 ```
 
-_See code: [src/commands/config.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/config.ts)_

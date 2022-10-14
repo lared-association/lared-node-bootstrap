@@ -1,5 +1,5 @@
 `lared-node-bootstrap help`
-====================
+===========================
 
 display help for lared-node-bootstrap
 

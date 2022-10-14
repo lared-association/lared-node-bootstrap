@@ -1,5 +1,5 @@
 `lared-node-bootstrap wizard`
-======================
+=============================
 
 An utility command that will help you configuring node!
 
@@ -17,8 +17,8 @@ OPTIONS
   -c, --customPreset=customPreset             [default: custom-preset.yml] The custom preset to be created.
   -h, --help                                  It shows the help of this command.
 
-  -t, --target=target                         [default: target] The target folder where the lared-node-bootstrap network is
-                                              generated
+  -t, --target=target                         [default: target] The target folder where the lared-node-bootstrap network
+                                              is generated
 
   --logger=logger                             [default: Console] The loggers the command will use. Options are:
                                               Console,File,Silent. Use ',' to select multiple loggers.
@@ -39,4 +39,4 @@ EXAMPLE
   $ lared-node-bootstrap wizard
 ```
 
-_See code: [src/commands/wizard.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/wizard.ts)_
+_See code: [src/commands/wizard.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/wizard.ts)_

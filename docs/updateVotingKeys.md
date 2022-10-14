@@ -1,5 +1,5 @@
 `lared-node-bootstrap updateVotingKeys`
-================================
+=======================================
 
 It updates the voting files containing the voting keys when required.
 
@@ -47,4 +47,4 @@ EXAMPLE
   $ lared-node-bootstrap updateVotingKeys
 ```
 
-_See code: [src/commands/updateVotingKeys.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/updateVotingKeys.ts)_
+_See code: [src/commands/updateVotingKeys.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/updateVotingKeys.ts)_

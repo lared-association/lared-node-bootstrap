@@ -1,5 +1,5 @@
 `lared-node-bootstrap stop`
-====================
+===========================
 
 It stops the docker-compose network if running (lared-node-bootstrap started with --detached). This is just a wrapper for the `docker-compose down` bash call.
 
@@ -24,4 +24,4 @@ EXAMPLE
   $ lared-node-bootstrap stop
 ```
 
-_See code: [src/commands/stop.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/stop.ts)_
+_See code: [src/commands/stop.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/stop.ts)_

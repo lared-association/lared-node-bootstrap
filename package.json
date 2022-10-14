@@ -1,7 +1,7 @@
 {
     "name": "@lared/lared-node-bootstrap",
     "description": "LaRed tool that allows you creating, configuring and running Lared's networks",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "author": "LaRed <info@lared.io>, Fernando Boucquez <fboucquez@gmail.com>",
     "bin": {
         "lared-node-bootstrap": "bin/run"

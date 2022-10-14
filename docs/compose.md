@@ -1,5 +1,5 @@
 `lared-node-bootstrap compose`
-=======================
+==============================
 
 It generates the `docker-compose.yml` file from the configured network.
 
@@ -35,7 +35,7 @@ OPTIONS
   --upgrade            It regenerates the docker compose and utility files from the <target>/docker folder
 
 EXAMPLE
-  $ lared-node-bootstrap compose
+  $ lared-node-bootstrapotstrap compose
 ```
 
-_See code: [src/commands/compose.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/compose.ts)_
+_See code: [src/commands/compose.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/compose.ts)_

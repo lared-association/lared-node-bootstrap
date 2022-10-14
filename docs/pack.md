@@ -1,5 +1,5 @@
 `lared-node-bootstrap pack`
-====================
+===========================
 
 It configures and packages your node into a zip file that can be uploaded to the final node machine.
 
@@ -30,7 +30,8 @@ OPTIONS
 
   -r, --reset                      It resets the configuration generating a new one.
 
-  -t, --target=target              [default: target] The target folder where the lared-node-bootstrap network is generated
+  -t, --target=target              [default: target] The target folder where the lared-node-bootstrap network is
+                                   generated
 
   -u, --user=user                  [default: current] User used to run docker images when creating configuration files
                                    like certificates or nemesis block. "current" means the current user.
@@ -66,4 +67,4 @@ EXAMPLES
   $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap pack -c custom-preset.yml
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/pack.ts)_

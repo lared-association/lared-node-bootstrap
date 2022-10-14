@@ -1,5 +1,5 @@
 `lared-node-bootstrap verify`
-======================
+=============================
 
 It tests the installed software in the current computer reporting if there is any missing dependency, invalid version, or software related issue.
 
@@ -23,4 +23,4 @@ EXAMPLE
   $ lared-node-bootstrap verify
 ```
 
-_See code: [src/commands/verify.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/verify.ts)_
+_See code: [src/commands/verify.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/verify.ts)_

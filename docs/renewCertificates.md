@@ -1,5 +1,5 @@
 `lared-node-bootstrap renewCertificates`
-=================================
+========================================
 
 It renews the SSL certificates of the node regenerating the node.csr.pem files but reusing the current private keys.
 
@@ -27,7 +27,8 @@ OPTIONS
 
   -h, --help                       It shows the help of this command.
 
-  -t, --target=target              [default: target] The target folder where the lared-node-bootstrap network is generated
+  -t, --target=target              [default: target] The target folder where the lared-node-bootstrap network is
+                                   generated
 
   -u, --user=user                  [default: current] User used to run docker images when generating the certificates.
                                    "current" means the current user.
@@ -58,4 +59,4 @@ EXAMPLE
   $ lared-node-bootstrap renewCertificates
 ```
 
-_See code: [src/commands/renewCertificates.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/renewCertificates.ts)_
+_See code: [src/commands/renewCertificates.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/renewCertificates.ts)_

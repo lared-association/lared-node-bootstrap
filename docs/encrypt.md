@@ -1,5 +1,5 @@
 `lared-node-bootstrap encrypt`
-=======================
+==============================
 
 It encrypts a yml file using the provided password. The source files would be a custom preset file, a preset.yml file or an addresses.yml.
 
@@ -41,12 +41,14 @@ EXAMPLES
   > password prompt (enter the same password)
         
 
-  $ lared-node-bootstrap encrypt --password 1234 --source plain-custom-preset.yml --destination encrypted-custom-preset.yml
-  $ lared-node-bootstrap start --password 1234 --preset testnet --assembly dual --customPreset encrypted-custom-preset.yml
+  $ lared-node-bootstrap encrypt --password 1234 --source plain-custom-preset.yml --destination 
+  encrypted-custom-preset.yml
+  $ lared-node-bootstrap start --password 1234 --preset testnet --assembly dual --customPreset 
+  encrypted-custom-preset.yml
 
 
    $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap encrypt --source plain-custom-preset.yml --destination 
   encrypted-custom-preset.yml
 ```
 
-_See code: [src/commands/encrypt.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/encrypt.ts)_
+_See code: [src/commands/encrypt.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/encrypt.ts)_

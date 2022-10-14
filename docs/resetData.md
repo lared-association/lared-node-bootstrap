@@ -1,5 +1,5 @@
 `lared-node-bootstrap resetData`
-=========================
+================================
 
 It removes the data keeping the generated configuration, certificates, keys and block 1.
 
@@ -24,4 +24,4 @@ EXAMPLE
   $ lared-node-bootstrap resetData
 ```
 
-_See code: [src/commands/resetData.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/resetData.ts)_
+_See code: [src/commands/resetData.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/resetData.ts)_

@@ -1,5 +1,5 @@
 `lared-node-bootstrap clean`
-=====================
+============================
 
 It removes the target folder deleting the generated configuration and data
 
@@ -24,4 +24,4 @@ EXAMPLE
   $ lared-node-bootstrap clean
 ```
 
-_See code: [src/commands/clean.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/clean.ts)_
+_See code: [src/commands/clean.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/clean.ts)_

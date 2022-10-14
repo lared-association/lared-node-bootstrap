@@ -1,5 +1,5 @@
 `lared-node-bootstrap healthCheck`
-===========================
+==================================
 
 It checks if the services created with docker compose are up and running.
 
@@ -39,4 +39,4 @@ EXAMPLE
   $ lared-node-bootstrap healthCheck
 ```
 
-_See code: [src/commands/healthCheck.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/healthCheck.ts)_
+_See code: [src/commands/healthCheck.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/healthCheck.ts)_

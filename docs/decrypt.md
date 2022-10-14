@@ -1,5 +1,5 @@
 `lared-node-bootstrap decrypt`
-=======================
+==============================
 
 It decrypts a yml file using the provided password. The source file can be a custom preset file, a preset.yml file or an addresses.yml.
 
@@ -34,10 +34,11 @@ DESCRIPTION
 
 EXAMPLES
 
-  $ lared-node-bootstrap start --password 1234 --preset testnet --assembly dual --customPreset decrypted-custom-preset.yml 
-  --detached
+  $ lared-node-bootstrap start --password 1234 --preset testnet --assembly dual --customPreset 
+  decrypted-custom-preset.yml --detached
   $ lared-node-bootstrap decrypt --password 1234 --source target/addresses.yml --destination plain-addresses.yml
-  $ lared-node-bootstrap decrypt --password 1234 --source encrypted-custom-preset.yml --destination plain-custom-preset.yml
+  $ lared-node-bootstrap decrypt --password 1234 --source encrypted-custom-preset.yml --destination 
+  plain-custom-preset.yml
   $ cat plain-addresses.yml
   $ cat plain-custom-preset.yml
   $ rm plain-addresses.yml
@@ -55,7 +56,8 @@ EXAMPLES
   $ rm plain-addresses.yml
   $ rm plain-custom-preset.yml
 
-  $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap decrypt --source target/addresses.yml --destination plain-addresses.yml
+  $ echo "$MY_ENV_VAR_PASSWORD" | lared-node-bootstrap decrypt --source target/addresses.yml --destination 
+  plain-addresses.yml
 ```
 
-_See code: [src/commands/decrypt.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.4/src/commands/decrypt.ts)_
+_See code: [src/commands/decrypt.ts](https://github.com/lared-association/lared-node-bootstrap/blob/v1.1.5/src/commands/decrypt.ts)_
